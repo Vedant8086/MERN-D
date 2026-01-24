@@ -1,6 +1,28 @@
 * {
     margin: 0;
     padding: 0;
-    font-family: sans-serif;
+    font-family: Poppins, Arial;
     box-sizing: border-box;
+}
+.image {
+    position : absolute;
+    text-align:right;
+}
+header {
+    background-image: url("Background.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color:white;
+    padding: 70px;
+    text-align: left;
+    height : 300px
+}
+.my-project-button {
+    color: #fff;
+    background-color: blue;
+    padding : 10px 20px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
 }
