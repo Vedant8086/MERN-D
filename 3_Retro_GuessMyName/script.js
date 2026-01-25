@@ -1,7 +1,7 @@
 console.log("Game Development Started!!!");
 let btn = document.querySelector('.check');
 let again = document.querySelector('.again');
-const number = Math.trunc(Math.random() * 20) + 1;
+let number = Math.trunc(Math.random() * 20) + 1;
 let score = 20;
 let high_score = 0;
 if(document.querySelector('.guess').value ===  ' ') {
@@ -47,4 +47,6 @@ again.addEventListener('click',function () {
     document.body.style.backgroundColor = '#222';
     document.querySelector('.guess').value = '';
     document.querySelector('.number').textContent = '?';
+    document.querySelector('.highscore').textContent = 0;
+    number = Math.trunc(Math.random() * 20) + 1;
 })
