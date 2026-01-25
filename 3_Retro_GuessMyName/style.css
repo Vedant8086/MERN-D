@@ -117,3 +117,128 @@ h1 {
 .label-score {
   margin-bottom: 2rem;
 }
+/* ============================= */
+/* RESPONSIVE DESIGN */
+/* ============================= */
+
+/* Large tablets & small laptops */
+@media (max-width: 1024px) {
+  html {
+    font-size: 58%;
+  }
+
+  main {
+    padding: 2rem;
+  }
+
+  .left,
+  .right {
+    width: 45rem;
+  }
+
+  h1 {
+    font-size: 3.5rem;
+  }
+
+  .number {
+    font-size: 5rem;
+    width: 14rem;
+  }
+}
+
+/* Tablets */
+@media (max-width: 768px) {
+  html {
+    font-size: 55%;
+  }
+
+  header {
+    height: 30vh;
+  }
+
+  main {
+    flex-direction: column;
+    height: auto;
+    gap: 4rem;
+  }
+
+  .left,
+  .right {
+    width: 100%;
+    text-align: center;
+  }
+
+  .guess {
+    width: 20rem;
+    font-size: 4rem;
+  }
+
+  .message {
+    margin-bottom: 4rem;
+  }
+}
+
+/* Mobile devices */
+@media (max-width: 480px) {
+  html {
+    font-size: 50%;
+  }
+
+  header {
+    height: 28vh;
+  }
+
+  h1 {
+    font-size: 2.6rem;
+    top: 55%;
+  }
+
+  .between {
+    font-size: 1.2rem;
+    right: 1rem;
+    top: 1rem;
+  }
+
+  .again {
+    top: 1rem;
+    left: 1rem;
+    padding: 1.2rem 2rem;
+    font-size: 1.4rem;
+  }
+
+  .number {
+    font-size: 4rem;
+    width: 11rem;
+    padding: 2rem 0;
+  }
+
+  .guess {
+    width: 18rem;
+    font-size: 3.2rem;
+    padding: 2rem;
+  }
+
+  .btn {
+    font-size: 1.6rem;
+    padding: 1.5rem 2.5rem;
+  }
+
+  .right {
+    font-size: 1.6rem;
+  }
+}
+
+/* Very small devices */
+@media (max-width: 360px) {
+  h1 {
+    font-size: 2.2rem;
+  }
+
+  .number {
+    width: 10rem;
+  }
+
+  .guess {
+    width: 16rem;
+  }
+}
