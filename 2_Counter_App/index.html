@@ -1,25 +1,25 @@
 <!doctype html>
-
 <html class="light" lang="en">
   <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>Minimal Counter - Variant 1</title>
+
+    <!-- Fonts & Icons (UNCHANGED) -->
     <link
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
       rel="stylesheet"
     />
     <link href="https://fonts.googleapis.com" rel="preconnect" />
     <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&amp;display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap"
       rel="stylesheet"
     />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
-      rel="stylesheet"
-    />
+
+    <!-- Tailwind CDN (UNCHANGED) -->
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
     <script id="tailwind-config">
       tailwind.config = {
         darkMode: "class",
@@ -33,29 +33,19 @@
             fontFamily: {
               display: ["Inter", "sans-serif"],
             },
-            borderRadius: {
-              DEFAULT: "0.25rem",
-              lg: "0.5rem",
-              xl: "0.75rem",
-              "2xl": "1rem",
-              full: "9999px",
-            },
-            boxShadow: {
-              soft: "0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03)",
-              glow: "0 0 15px rgba(19, 127, 236, 0.3)",
-            },
           },
         },
       };
     </script>
   </head>
+
   <body
     class="bg-background-light dark:bg-background-dark text-[#0d141b] dark:text-slate-100 font-display transition-colors duration-200"
   >
     <div class="relative flex min-h-screen w-full flex-col overflow-x-hidden">
       <!-- Header -->
       <header
-        class="flex items-center justify-between whitespace-nowrap px-6 py-4 lg:px-10 border-b border-transparent"
+        class="flex items-center justify-between px-4 sm:px-6 lg:px-10 py-4 border-b border-transparent"
       >
         <div class="flex items-center gap-3">
           <div
@@ -64,82 +54,100 @@
             <span class="material-symbols-outlined text-2xl">calculate</span>
           </div>
           <h2
-            class="text-[#0d141b] dark:text-white text-lg font-bold leading-tight tracking-tight"
+            class="text-base sm:text-lg font-bold tracking-tight dark:text-white"
           >
             Minimal Counter
           </h2>
         </div>
-        <!-- Theme Toggle / Settings Placeholder -->
-        <div class="flex items-center gap-2">
-          <button id="theme_change"
-            class="flex items-center justify-center size-10 rounded-full hover:bg-slate-200 dark:hover:bg-slate-800 text-slate-500 dark:text-slate-400 transition-colors"
-          >
-            <span class="material-symbols-outlined">settings</span>
-          </button>
-        </div>
-      </header>
-      <!-- Main Content -->
-      <main class="flex flex-1 flex-col items-center justify-center p-4">
-        <!-- Central Card -->
-        <div
-          class="w-full max-w-[500px] rounded-2xl bg-white dark:bg-[#1e293b] shadow-xl dark:shadow-none dark:border dark:border-slate-700/50 p-8 md:p-12 flex flex-col items-center gap-10 transition-all hover:shadow-2xl"
+
+        <button
+          id="theme_change"
+          class="flex items-center justify-center size-9 sm:size-10 rounded-full hover:bg-slate-200 dark:hover:bg-slate-800 text-slate-500 transition-colors"
         >
-          <!-- Counter Display -->
-          <div class="flex flex-col items-center justify-center w-full py-6">
-            <h1 id="counters"
-              class="text-primary dark:text-blue-400 text-[8rem] font-extrabold leading-none tracking-tighter select-none drop-shadow-sm"
+          <span class="material-symbols-outlined">settings</span>
+        </button>
+      </header>
+
+      <!-- Main -->
+      <main
+        class="flex flex-1 items-center justify-center px-4 sm:px-6 lg:px-8"
+      >
+        <!-- Card -->
+        <div
+          class="w-full max-w-md sm:max-w-lg rounded-2xl bg-white dark:bg-[#1e293b]
+          shadow-xl dark:border dark:border-slate-700/50
+          p-6 sm:p-8 md:p-12
+          flex flex-col items-center gap-8 sm:gap-10 transition-all"
+        >
+          <!-- Counter -->
+          <div class="flex flex-col items-center py-4 sm:py-6">
+            <h1
+              id="counters"
+              class="text-primary dark:text-blue-400
+              text-[4.5rem] sm:text-[6rem] md:text-[7rem] lg:text-[8rem]
+              font-extrabold leading-none tracking-tighter select-none"
             >
               0
             </h1>
             <span
-              class="text-slate-400 dark:text-slate-500 text-sm font-medium uppercase tracking-widest mt-2"
-              >Current Count</span
+              class="text-xs sm:text-sm uppercase tracking-widest text-slate-400 mt-2"
             >
+              Current Count
+            </span>
           </div>
-          <!-- Action Bar -->
+
+          <!-- Buttons -->
           <div class="w-full flex flex-col gap-4">
-            <!-- Primary & Secondary Buttons Row -->
-            <div class="flex gap-3 w-full">
-              <button id="incre"
-                class="group flex flex-1 items-center justify-center gap-2 rounded-lg h-12 px-6 bg-primary hover:bg-blue-600 text-white text-sm font-bold tracking-wide transition-all active:scale-95 shadow-lg shadow-blue-500/20"
+            <div
+              class="flex flex-col sm:flex-row gap-3 w-full"
+            >
+              <button
+                id="incre"
+                class="flex-1 h-12 rounded-lg bg-primary text-white text-sm font-bold
+                flex items-center justify-center gap-2
+                hover:bg-blue-600 active:scale-95 transition-all"
               >
-                <span
-                  class="material-symbols-outlined text-lg group-hover:-translate-y-0.5 transition-transform"
-                  >add</span
-                >
-                <span>INCREMENT</span>
+                <span class="material-symbols-outlined">add</span>
+                INCREMENT
               </button>
-              <button id="decre"
-                class="group flex flex-1 items-center justify-center gap-2 rounded-lg h-12 px-6 bg-white dark:bg-transparent border-2 border-slate-200 dark:border-slate-600 text-slate-700 dark:text-slate-200 hover:border-slate-300 dark:hover:border-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800 text-sm font-bold tracking-wide transition-all active:scale-95"
+
+              <button
+                id="decre"
+                class="flex-1 h-12 rounded-lg border-2 border-slate-200
+                dark:border-slate-600 text-sm font-bold
+                flex items-center justify-center gap-2
+                hover:bg-slate-50 dark:hover:bg-slate-800 active:scale-95 transition-all"
               >
-                <span
-                  class="material-symbols-outlined text-lg group-hover:translate-y-0.5 transition-transform"
-                  >remove</span
-                >
-                <span>DECREMENT</span>
+                <span class="material-symbols-outlined">remove</span>
+                DECREMENT
               </button>
             </div>
-            <!-- Reset Button -->
-            <button id="reset"
-              class="w-full flex items-center justify-center gap-2 rounded-lg h-10 px-4 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/50 text-xs font-bold uppercase tracking-wider transition-colors"
+
+            <button
+              id="reset"
+              class="h-10 text-xs uppercase tracking-wider text-slate-400
+              hover:text-slate-600 dark:hover:text-slate-300
+              hover:bg-slate-100 dark:hover:bg-slate-800/50
+              rounded-lg transition-colors"
             >
-              <span class="material-symbols-outlined text-base"
-                >restart_alt</span
-              >
-              <span>Reset Counter</span>
+              <span class="material-symbols-outlined align-middle text-base">
+                restart_alt
+              </span>
+              Reset Counter
             </button>
           </div>
         </div>
       </main>
+
+      <!-- Script -->
       <script src="script.js">
         console.log("Counter Project is Here!!");
         console.log("Started Full Stack Development!!!");
       </script>
+
       <!-- Footer -->
-      <footer class="flex flex-col gap-2 px-5 py-6 text-center">
-        <p
-          class="text-slate-400 dark:text-slate-500 text-sm font-normal leading-normal"
-        >
+      <footer class="px-4 sm:px-6 py-6 text-center">
+        <p class="text-xs sm:text-sm text-slate-400">
           © 2023 Minimal Counter. All rights reserved.
         </p>
       </footer>
