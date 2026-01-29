@@ -1,3 +1,4 @@
+'use strict'
 let something = `this is nw some thing text`;
 function a(something) {
     let the = `this is ${something} is message`;
@@ -5,7 +6,7 @@ function a(something) {
     second();
     function second() {
         let a_var = "this is var";
-        console.log(this.a)
+        console.log(this?.a)
     }
 
 }
@@ -93,7 +94,86 @@ const charts = {
 const {menu,starter,rice} = charts;
 console.log(menu,starter,rice)
 
-let a = 90,b = 80;
-// want to tamaper values then....
-({a,b} = arrs);
-console.log(`Values a  : ${a} and of b : ${b}`);
+
+// console.log(`Values a  : ${a} and of b : ${b}`);
+
+const badArr = [1,2,3,...arrs];
+console.log(`Bad Array is `,badArr)
+const anotherMenu = ['Loolipop',...charts.menu];
+console.log(anotherMenu)
+
+const supremes = [1,2,3,4,5,6,7];
+const [os,ps,...others] = supremes
+console.log(os,ps,others)
+console.log(typeof others)
+
+//destructuring and REST Operation
+
+const another_array = charts.menu;
+
+for(const items of another_array) {
+    console.log(items)
+}
+//Best way to traverse the Object.
+for(const key in charts) {
+    console.log(key," : ",charts[key]);
+}
+
+const new_map = new Map([
+    ['Menu', ['Garlic Bread','roti','Paneer','Masala Papad']],
+    ['Starter', ['Soup','Salad','gobi','Papad']],
+    ['Rice', ['jira rice','plain','anna rice','rasam rice']]
+])
+
+console.log(new_map)
+
+for(const [key,value] of new_map) {
+    console.log(key," : ",value)
+}
+
+console.log("Map has Menu ?  : ",new_map.has('Menu'));
+
+const tes_obj = {
+    name : "Mike",
+    Wife : "Eleven",
+    Partner : "Will"
+}
+
+console.log("Before : ",tes_obj)
+const tes_function = function(new_names,tes_obj) {
+    tes_obj.name = new_names;
+}
+tes_function("Fool",tes_obj);
+console.log('After : ',tes_obj)
+
+const upperFirstWord = function(str) {
+    const [first,...othe] = str.split(' ');
+    return [first.toUpperCase(),...othe].join(' ');
+}
+
+const transformer = function(str,fn) {
+    console.log(`This is Original String : ${str}`);
+    console.log(`This is Transformed String : ${fn(str)}`);
+    console.log(`This String is Transformed By Function : ${fn.name}`)
+}
+
+transformer("Javascript is Better.",upperFirstWord);
+
+//designing a closure
+const greets = function(greeting) {
+        return function(name) {
+        console.log(`${greeting} to ${name}.`);
+    }
+}
+
+greets("hello")("vedant")
+const closures = greets("Hello")
+closures("Vedant");
+
+const another_greets = (prons) => {
+    return (names) => {
+        console.log(`${prons} to ${names}.`);
+    }
+}
+const one_another_greeting = greetss => namesss =>console.log(`${greetss} to ${namesss}.`)
+one_another_greeting("Hello")("Vedant");
