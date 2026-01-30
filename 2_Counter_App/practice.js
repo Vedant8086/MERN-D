@@ -177,3 +177,11 @@ const another_greets = (prons) => {
 }
 const one_another_greeting = greetss => namesss =>console.log(`${greetss} to ${namesss}.`)
 one_another_greeting("Hello")("Vedant");
+//IIFE
+(
+    function() {
+        console.log(`this is never run again!!!`);
+    }
+)();
+//another way
+(() => console.log(`this is also never run again!!!`))();
