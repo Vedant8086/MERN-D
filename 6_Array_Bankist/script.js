@@ -61,6 +61,22 @@ const inputLoanAmount = document.querySelector('.form__input--loan-amount');
 const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
+const displayMovements = function(movements) {
+  containerMovements.innerHTML = '';
+  movements.forEach(function(mov,i) {
+    const type = mov > 0 ? 'deposit' : 'withdrawal';
+
+    const html = `
+    <div class="movements">
+        <div class="movements__row">
+          <div class="movements__type movements__type--${type}">${i+1} ${type}</div>
+          <div class="movements__value">${mov}</div>
+        </div>`;
+    
+        containerMovements.insertAdjacentHTML('afterbegin',html);
+  })
+};
+displayMovements(account1.movements);
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES
@@ -76,10 +92,19 @@ const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 /////////////////////////////////////////////////
 
 let arr = ['a', 'b', 'c', 'd', 'e'];
+console.log(arr.reverse())
 console.log(arr.slice(-2))
 let rom = arr.slice(0,-1);
 console.log(`Array is : `,rom)
 let arr1 = [1,2,3,4,5,6,7,8,9,10]
+arr1.forEach((move,ind) => {
+    if(move > 4) {
+        console.log(`${move} is at index ${ind}`)
+    } else {
+        console.log(`${move} is at normal index ${ind}`)
+    }
+})
+console.log(arr1.reverse())
 console.log(arr1.splice(3,3))
 console.log(arr1)
 console.log(arr1.map(x => x * 2));
