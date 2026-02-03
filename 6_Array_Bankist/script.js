@@ -34,6 +34,7 @@ const account4 = {
 };
 
 const accounts = [account1, account2, account3, account4];
+const movements = [200, 450, -400, 3000, -650, -130, 90, 70, 1300];
 
 // Elements
 const labelWelcome = document.querySelector('.welcome');
@@ -60,64 +61,193 @@ const inputTransferAmount = document.querySelector('.form__input--amount');
 const inputLoanAmount = document.querySelector('.form__input--loan-amount');
 const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
-
-const displayMovements = function(movements) {
+const displayMovements = function(movements,sort = false) {
   containerMovements.innerHTML = '';
-  movements.forEach(function(mov,i) {
-    const type = mov > 0 ? 'deposit' : 'withdrawal';
+
+  const movs = sort ? movements.slice().sort((a,b) => a - b) : movements;
+
+  movs.forEach(function(mov,i) {
+    const type = mov > 0 ? 'deposit' : 'withdrawal'
 
     const html = `
-    <div class="movements">
-        <div class="movements__row">
-          <div class="movements__type movements__type--${type}">${i+1} ${type}</div>
-          <div class="movements__value">${mov}</div>
-        </div>`;
-    
-        containerMovements.insertAdjacentHTML('afterbegin',html);
+      <div class="movements__row">
+        <div class="movements__type movements__type--${type}">${
+      i + 1
+    } ${type}</div>
+        <div class="movements__value">${mov}€</div>
+      </div>
+    `;
+
+    containerMovements.insertAdjacentHTML('afterbegin',html);
   })
-};
-displayMovements(account1.movements);
-/////////////////////////////////////////////////
-/////////////////////////////////////////////////
-// LECTURES
-const calcDisplayBalance = function(movements) {
-  const balance = movements.reduce((acc,mov) => acc + mov,0);
-  labelBalance.textContent = `${balance} EUR`;
 }
+const calcDisplayBalance = function (acc) {
+  acc.balance = acc.movements.reduce((acc, mov) => acc + mov, 0);
+  labelBalance.textContent = `${acc.balance}€`;
+};
+const calcDisplaySummary = function(acc) {
+  const income = acc.movements
+  .filter(mov => mov > 0)
+  .reduce((acc,mov) => acc + mov,0);
 
-calcDisplayBalance(account1.movements)
+  labelSumIn.textContent = `${income}€`;
 
-const max = account1.movements.reduce((acc,mov) => {
-  if(acc > mov) return acc;
-  else return mov;
-},account1.movements[0]);
-console.log(max);
-const euToUsd = 1.1;
-const totalDeposistUSD = account1.movements
-.filter(mov => mov > 0)
-.map(mov => mov * euToUsd)
-.reduce((acc,mov) => acc + mov,0)
-.toFixed(1);
-console.log(`Total USD Deposists are ${totalDeposistUSD}`);
-const createUsername = function(accounts) {
-  accounts.forEach(function(accs) {
+  const out = acc.movements
+  .filter(mov => mov < 0)
+  .reduce((acc,mov) => acc + mov,0);
+  labelSumOut.textContent = `${out}€`;
+
+  const interest = acc.movements
+    .filter(mov => mov > 0)
+    .map(deposit => (deposit * acc.interestRate) / 100)
+    .filter((int, i, arr) => {
+      return int >= 1;
+    })
+    .reduce((acc, int) => acc + int, 0);
+  labelSumInterest.textContent = `${interest}€`;
+}
+const createUserName = function(acc) {
+  acc.forEach((accs) => {
     accs.username = accs.owner
     .toLowerCase()
     .split(' ')
-    .map(name => name[0])
+    .map(mov => mov[0])
     .join('')
-  });
-};
-const user = "Jonas Mike Williams"
-createUsername(accounts)
+  })
+}
+createUserName(accounts)
 console.log(accounts)
-const currencies = new Map([
-  ['USD', 'United States dollar'],
-  ['EUR', 'Euro'],
-  ['GBP', 'Pound sterling'],
-]);
+const updateUI = function(acc) {
+  displayMovements(acc.movements);
 
-const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+  calcDisplayBalance(acc);
+
+  calcDisplaySummary(acc);
+}
+let currentAccount;
+btnLogin.addEventListener('click',function (e) {
+  e.preventDefault();
+  currentAccount = accounts.find(
+    acc => acc.username === inputLoginUsername.value
+  );
+  console.log(currentAccount)
+
+  if(currentAccount?.pin === Number(inputLoginPin.value)) {
+    labelWelcome.textContent = `Welcome back, ${currentAccount.owner.split(' ')[0]}`
+    containerApp.style.opacity = 1;
+
+    inputLoginUsername.value = '';
+    inputLoginPin.value = '';
+
+    updateUI(currentAccount);
+  }
+});
+
+btnTransfer.addEventListener('click',function(e) {
+  e.preventDefault();
+
+  const amount = Number(inputTransferAmount.value);
+  const receiveAcc = accounts.find(
+    acc => acc.username === inputTransferTo.value
+  );
+  inputTransferAmount.value = inputTransferTo.value = '';
+
+  if (
+    amount > 0 &&
+    receiverAcc &&
+    currentAccount.balance >= amount &&
+    receiverAcc?.username !== currentAccount.username
+  ) {
+    currentAccount.movements.push(-amount);
+    receiverAcc.movements.push(amount);
+
+    
+    updateUI(currentAccount);
+  }
+
+})
+
+btnLoan.addEventListener('click', function (e) {
+  e.preventDefault();
+
+  const amount = Number(inputLoanAmount.value);
+
+  if (amount > 0 && currentAccount.movements.some(mov => mov >= amount * 0.1)) {
+    
+    currentAccount.movements.push(amount);
+
+  
+    updateUI(currentAccount);
+  }
+  inputLoanAmount.value = '';
+});
+
+btnClose.addEventListener('click', function (e) {
+  e.preventDefault();
+
+  if (
+    inputCloseUsername.value === currentAccount.username &&
+    Number(inputClosePin.value) === currentAccount.pin
+  ) {
+    const index = accounts.findIndex(
+      acc => acc.username === currentAccount.username
+    );
+    console.log(index);
+   
+
+   
+    accounts.splice(index, 1);
+
+ 
+    containerApp.style.opacity = 0;
+  }
+
+  inputCloseUsername.value = inputClosePin.value = '';
+});
+
+let sorted = false;
+btnSort.addEventListener('click', function (e) {
+  e.preventDefault();
+  displayMovements(currentAccount.movements, !sorted);
+  sorted = !sorted;
+});
+
+
+/////////////////////////////////////////////////
+/////////////////////////////////////////////////
+// LECTURES
+
+// const max = account1.movements.reduce((acc,mov) => {
+//   if(acc > mov) return acc;
+//   else return mov;
+// },account1.movements[0]);
+// console.log(max);
+// const euToUsd = 1.1;
+// const totalDeposistUSD = account1.movements
+// .filter(mov => mov > 0)
+// .map(mov => mov * euToUsd)
+// .reduce((acc,mov) => acc + mov,0)
+// .toFixed(1);
+// console.log(`Total USD Deposists are ${totalDeposistUSD}`);
+// const createUsername = function(accounts) {
+//   accounts.forEach(function(accs) {
+//     accs.username = accs.owner
+//     .toLowerCase()
+//     .split(' ')
+//     .map(name => name[0])
+//     .join('')
+//   });
+// };
+// const user = "Jonas Mike Williams"
+// createUsername(accounts)
+// console.log(accounts)
+// const currencies = new Map([
+//   ['USD', 'United States dollar'],
+//   ['EUR', 'Euro'],
+//   ['GBP', 'Pound sterling'],
+// ]);
+// const labelSumInValue = 300
+// labelSumIn.textContent = `${labelSumInValue}`;
 
 /////////////////////////////////////////////////
 
