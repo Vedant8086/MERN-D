@@ -80,7 +80,37 @@ displayMovements(account1.movements);
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES
+const calcDisplayBalance = function(movements) {
+  const balance = movements.reduce((acc,mov) => acc + mov,0);
+  labelBalance.textContent = `${balance} EUR`;
+}
 
+calcDisplayBalance(account1.movements)
+
+const max = account1.movements.reduce((acc,mov) => {
+  if(acc > mov) return acc;
+  else return mov;
+},account1.movements[0]);
+console.log(max);
+const euToUsd = 1.1;
+const totalDeposistUSD = account1.movements
+.filter(mov => mov > 0)
+.map(mov => mov * euToUsd)
+.reduce((acc,mov) => acc + mov,0)
+.toFixed(1);
+console.log(`Total USD Deposists are ${totalDeposistUSD}`);
+const createUsername = function(accounts) {
+  accounts.forEach(function(accs) {
+    accs.username = accs.owner
+    .toLowerCase()
+    .split(' ')
+    .map(name => name[0])
+    .join('')
+  });
+};
+const user = "Jonas Mike Williams"
+createUsername(accounts)
+console.log(accounts)
 const currencies = new Map([
   ['USD', 'United States dollar'],
   ['EUR', 'Euro'],
@@ -91,22 +121,22 @@ const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 /////////////////////////////////////////////////
 
-let arr = ['a', 'b', 'c', 'd', 'e'];
-console.log(arr.reverse())
-console.log(arr.slice(-2))
-let rom = arr.slice(0,-1);
-console.log(`Array is : `,rom)
-let arr1 = [1,2,3,4,5,6,7,8,9,10]
-arr1.forEach((move,ind) => {
-    if(move > 4) {
-        console.log(`${move} is at index ${ind}`)
-    } else {
-        console.log(`${move} is at normal index ${ind}`)
-    }
-})
-console.log(arr1.reverse())
-console.log(arr1.splice(3,3))
-console.log(arr1)
-console.log(arr1.map(x => x * 2));
-console.log(arr1.filter(x => (x > 4)))
-console.log(arr1.reduce(x => (x < 4)))
+// let arr = ['a', 'b', 'c', 'd', 'e'];
+// console.log(arr.reverse())
+// console.log(arr.slice(-2))
+// let rom = arr.slice(0,-1);
+// console.log(`Array is : `,rom)
+// let arr1 = [1,2,3,4,5,6,7,8,9,10]
+// arr1.forEach((move,ind) => {
+//     if(move > 4) {
+//         console.log(`${move} is at index ${ind}`)
+//     } else {
+//         console.log(`${move} is at normal index ${ind}`)
+//     }
+// })
+// console.log(arr1.reverse())
+// console.log(arr1.splice(3,3))
+// console.log(arr1)
+// console.log(arr1.map(x => x * 2));
+// console.log(arr1.filter(x => (x > 4)))
+// console.log(arr1.reduce(x => (x < 4)))
