@@ -270,3 +270,11 @@ btnSort.addEventListener('click', function (e) {
 // console.log(arr1.map(x => x * 2));
 // console.log(arr1.filter(x => (x > 4)))
 // console.log(arr1.reduce(x => (x < 4)))
+
+const superInterestFunction = ((name,movs,x1=90,x2=30)=> {
+  console.log(`This Notice is For ${name} to be execution in ${movs} for ${x1+x2} USD`)
+})
+
+
+superInterestFunction("Epstein",90,120,300);
+
