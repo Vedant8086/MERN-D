@@ -211,7 +211,12 @@ btnSort.addEventListener('click', function (e) {
   displayMovements(currentAccount.movements, !sorted);
   sorted = !sorted;
 });
+const strongs = ['this','this','is','is','mool']
+console.log(strongs.findLast('this'))
+console.log(strongs.findLastIndex('this'))
 
+const largeMovementIndex = account1.movements.findLastIndex(mov => Math.abs(mov) > 2000);
+console.log(largeMovementIndex);
 
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////

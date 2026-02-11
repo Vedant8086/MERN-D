@@ -3,11 +3,14 @@ console.log("Hello World!! It is Counter!!");
 console.log(`Simple Yet
     Super Fucking Powerful into the 
     Margin of Store!!`)
+console.log(`Script is your useful`);
 // let input = Number(prompt("Enter the Number for Conversion ? "));
 // if(input === '23') {
     //     console.log(`${input} is fab number dude !!`);
     // }
+const years2 = new Array(90,91,92,93,94);
 const years = new Array(89,90,89,23);
+console.log(`I created Some Arrays ${typeof years} and another is ${typeof years2}`)
 const age = [years[0],years[1],years[years.length - 1]]
 console.log(age);
 console.log(years.pop(),years)
@@ -18,7 +21,6 @@ const jonasArray = [
     'Schemandams',
     56879-90,
     ['donald','trump','putin'],
-
 ];
 console.log(typeof jonasArray)
 let obj1 = {

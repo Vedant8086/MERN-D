@@ -45,6 +45,11 @@ const Object = {
         return [this.starter[start],this.rice[main]];
     }
 }
+console.log(`This is Strict Mode Warning !!!!`);
+
+function alertingFunction() {
+    alert(`This System is Compromised!!!Move Out!!!!`);
+}
 
 let [rice_1, rice_2] = Object.rice;
 console.log(`Rice one is ${rice_1} and rice 2 is ${rice_2}.`)
