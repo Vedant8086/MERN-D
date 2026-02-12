@@ -190,3 +190,25 @@ one_another_greeting("Hello")("Vedant");
 )();
 //another way
 (() => console.log(`this is also never run again!!!`))();
+
+
+const movements = [200, 450, -400, 3000, -650, -130, 90, 70, 1300];
+
+const objectGroupBy = Object.groupBy(movements, movement => 
+  movement > 0 ? 'deposits' : 'withdrawals'
+);
+
+console.log(objectGroupBy);
+
+console.log(objectGroupBy)
+const toFlatArray = [[1,2,3],[4,5,6],[7,8,9]]
+const anyDepositSome = movements.some(mov => mov > 90)
+const everyTestCondition = movements.every(mov => mov > 90)
+console.log(everyTestCondition)
+console.log(anyDepositSome)
+console.log(movements)
+console.log(movements.with(2,9000))
+console.log(movements.toReversed())
+console.log(movements.toSorted())
+console.log(toFlatArray.flat(8))
+// console.log(movements.sort((a,b) => b - a))
