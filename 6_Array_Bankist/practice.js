@@ -40,3 +40,17 @@ const new_date = new Date()
 console.log(new_date)
 const prev_date = new Date('December 24,2015')
 console.log(prev_date)
+const future = new Date(2037, 9, 4, 5, 10,10, 10)
+console.log(`\n
+    The Year  : ${future.getFullYear()}\n
+    The Month : ${Number(future.getMonth())}\n
+    The Date : ${future.getDate()}\n
+    The Day : ${future.getDay()}\n
+    The Hours : ${future.getHours()}\n
+    The Minutes : ${future.getMinutes()}\n
+    The Seconds : ${future.getSeconds()}\n
+    The MilliSeconds : ${future.getMilliseconds()}
+    ${future.getTimezoneOffset()}`)
+
+    
+console.log(future.getFullYear)
