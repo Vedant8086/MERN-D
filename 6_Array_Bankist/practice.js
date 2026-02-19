@@ -54,3 +54,8 @@ console.log(`\n
 
     
 console.log(future.getFullYear)
+console.log(future.getDay)
+console.log(future.getHours)
+console.log(future.getMinutes)
+console.log(future.getMilliseconds)
+console.log(future.getSeconds)
