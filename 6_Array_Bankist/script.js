@@ -124,7 +124,31 @@ const updateUI = function(acc) {
 
   calcDisplaySummary(acc);
 }
-let currentAccount;
+const startLogoutTimer = function () {
+  let time = 100;
+  setInterval(
+    function(){
+      labelTimer.textContent = time;
+      time--;
+  },1000);
+}
+startLogoutTimer()
+let currentAccount = account1
+updateUI(currentAccount)
+containerApp.style.opacity = 100;
+const now = new Date();
+const Options = {
+    hour : 'numeric',
+    minute : 'numeric',
+    weekday : 'long',
+    month : 'long',
+    day : 'numeric',
+    year : 'numeric'
+
+}
+const num = 70000
+labelDate.textContent = Intl.DateTimeFormat('en-GN',Options).format(now);
+labelBalance.textContent = `${Intl.NumberFormat('de-DE').format(num)}€`
 btnLogin.addEventListener('click',function (e) {
   e.preventDefault();
   currentAccount = accounts.find(
@@ -217,7 +241,6 @@ console.log(strongs.findLastIndex('this'))
 
 const largeMovementIndex = account1.movements.findLastIndex(mov => Math.abs(mov) > 2000);
 console.log(largeMovementIndex);
-
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES
