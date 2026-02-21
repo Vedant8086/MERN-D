@@ -7,6 +7,9 @@ const modal = document.querySelector('.modal');
 const overlay = document.querySelector('.overlay');
 const btnCloseModal = document.querySelector('.btn--close-modal');
 const btnsOpenModal = document.querySelectorAll('.btn--show-modal');
+const btnScrollTo = document.querySelector('.btn--scroll-to');
+const sectino1 = document.querySelector('#section--1');
+
 
 const openModal = function (e) {
   e.preventDefault();
@@ -29,6 +32,36 @@ document.addEventListener('keydown', function (e) {
     closeModal();
   }
 });
+btnScrollTo.addEventListener('click',(e)=>{
+  const secCords = sectino1.getBoundingClientRect();
+  console.log(secCords);
+
+  console.log(e.target.getBoundingClientRect());
+
+  console.log("Scroll (x/y) : ",window.pageXOffset,window.pageYOffset);
+  console.log('height/width : ',
+    document.documentElement.clientHeight,
+    document.documentElement.clientWidth
+  );
+
+  // window.scrollTo({
+  //   left : secCords.left + window.pageXOffset,
+  //   top : secCords.top + window.pageYOffset,
+  //   behavior : 'smooth'});
+
+    sectino1.scrollIntoView({behavior: 'smooth'}) // Support Only Modern Browsers;
+});
+
+document.querySelectorAll('.nav__link').forEach(
+  function(el) {
+    el.addEventListener('click',function(e) {
+      e.preventDefault();
+      const id = this.getAttribute('href');
+      console.log(id);
+      document.querySelector(id).scrollIntoView({behavior:'smooth'});
+    })
+  }
+)
 
 const message = document.createElement('div')
 message.classList.add('cookie-message');
@@ -55,7 +88,7 @@ message.style.height = Number.parseFloat(
 )  + 40 + 'px';
 // getComputedStyle(body).margin = 0;
 // getComputedStyle(body).padding = 0;
-document.documentElement.style.setProperty('--color-primary','red');
+// document.documentElement.style.setProperty('--color-primary','red');
 
 //Attributes
 const logo = document.querySelector('.nav__logo');
@@ -68,3 +101,12 @@ logo.setAttribute('Company','Bankist')
 console.log(logo.getAttribute('company'));
 logo.setAttribute('designer','Super Mario')
 console.log(logo.getAttribute('designer'))
+
+let RenderNumber = 0;
+const openAccountButton = document.querySelector('.btn--show-modal');
+const alertingModel = function() {
+  RenderNumber++;
+  alert(`Wanna Open Bank Account ? ---> Render Number : ${RenderNumber}`)
+}
+openAccountButton.addEventListener('mouseenter',alertingModel)
+openAccountButton.onmouseenter = alertingModel;
