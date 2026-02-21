@@ -9,6 +9,11 @@ const btnCloseModal = document.querySelector('.btn--close-modal');
 const btnsOpenModal = document.querySelectorAll('.btn--show-modal');
 const btnScrollTo = document.querySelector('.btn--scroll-to');
 const sectino1 = document.querySelector('#section--1');
+const nav = document.querySelector('.nav');
+const tab = document.querySelectorAll('.operations__tab');
+const tabContainer = document.querySelector('.operations__tab-container');
+const tabContent = document.querySelectorAll('.operations__content');
+const headerTitle = document.querySelector('.header__title')
 
 
 const openModal = function (e) {
@@ -63,6 +68,60 @@ document.querySelectorAll('.nav__link').forEach(
   }
 )
 
+//By Event Delegation
+document.querySelector('.nav__links').addEventListener(
+  'click',function(e) {
+    e.preventDefault();
+    
+    if(e.target.classList.contains('nav__link')) {
+      const id = e.target.getAttribute('href');
+      console.log(id);
+      document.querySelector(id).scrollIntoView({behavior:'smooth'});
+    }
+  }
+)
+//Tab Containers Implemetation;
+
+tabContainer.addEventListener('click',function(e) {
+  const clicked = e.target.closest('.operations__tab')
+
+  if(!clicked) return;
+  tab.forEach(t=>t.classList.remove('operations__tab--active'));
+  clicked.classList.add('operations__tab--active')
+  tabContent.forEach(t=>t.classList.remove('operations__content--active'));
+  clicked.classList.add('operations__tab--active')
+  document.querySelector(`.operations__content--${clicked.getAttribute('data-tab')}`)
+  .classList.add('operations__content--active')
+
+  console.log("TAB");
+})
+
+//Menu Fade Animations
+const handleOver = function(e) {
+  if(e.target.classList.contains('nav__link')) {
+    const link = e.target;
+    const siblings = link.closest('.nav').querySelectorAll('.nav__link');
+    const logo = link.closest('.nav').querySelector('img')
+
+    siblings.forEach(el=>{
+      if(el !== link) el.style.opacity = this;
+    });
+    logo.style.opacity = this;
+  }
+}
+nav.addEventListener('mouseover',handleOver.bind(0.5));
+nav.addEventListener('mouseout',handleOver.bind(1));
+
+//Scroll Event
+const InitialCords = headerTitle.getBoundingClientRect();
+
+window.addEventListener('scroll',function(e) {
+  if(this.window.scrollY > InitialCords.top) {
+    nav.classList.add('sticky');
+  } else {
+    nav.classList.remove('sticky');
+  }
+})
 const message = document.createElement('div')
 message.classList.add('cookie-message');
 message.innerHTML = 
@@ -108,5 +167,5 @@ const alertingModel = function() {
   RenderNumber++;
   alert(`Wanna Open Bank Account ? ---> Render Number : ${RenderNumber}`)
 }
-openAccountButton.addEventListener('mouseenter',alertingModel)
-openAccountButton.onmouseenter = alertingModel;
+// openAccountButton.addEventListener('mouseenter',alertingModel)
+// openAccountButton.onmouseenter = alertingModel;
