@@ -122,6 +122,64 @@ window.addEventListener('scroll',function(e) {
     nav.classList.remove('sticky');
   }
 })
+
+//Intersection Observer Section [Research About It]
+const obsFunction = function(entries,observer) {
+  entries.forEach(entry=>{
+    console.log(entry);
+  })
+}
+const obsObject = {
+  root : null,
+  threshold : 0.1
+} 
+const observer = new IntersectionObserver(obsFunction,obsObject)
+observer.observe(sectino1);
+
+//Reveal Sections As we scroll them
+const allSections = document.querySelectorAll('.section');
+
+const revealSection = function(entries,observer) {
+  const [entry] = entries;
+  console.log(entry)
+  if(!entry.isIntersecting) return;
+  entry.target.classList.remove('section--hidden');
+
+  observer.unobserve(entry.target);
+}
+
+const sectionObs = new IntersectionObserver(revealSection,{
+  root:null,
+  threshold:0.15
+})
+allSections.forEach(section=>{
+  sectionObs.observe(section);
+  section.classList.add('section--hidden');
+})
+
+//Lazy Loading Implementation
+const imgTarget = document.querySelectorAll('img[data-src]');
+
+const loadImg = function(entries,observer) {
+  const [entry] = entries;
+  if(!entry.isIntersecting) return;
+
+  entry.target.src = entry.target.dataset.src;
+
+  entry.target.addEventListener('load',function(e) {
+    entry.target.classList.remove('lazy-img')
+  });
+
+  observer.unobserve(entry.target);
+}
+const imgObserver = new IntersectionObserver(loadImg,{
+  root: null,
+  threshold: 0.4
+})
+
+imgTarget.forEach(imgs => imgObserver.observe(imgs));
+
+//Methods Revision
 const message = document.createElement('div')
 message.classList.add('cookie-message');
 message.innerHTML = 
