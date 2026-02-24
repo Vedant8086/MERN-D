@@ -67,26 +67,6 @@ Mercedes.acceleration();
 BMW.brake()
 BMW.brake()
 BMW.brake()
-
-// Classes Implemetations
-class PersonCl {
-    constructor(first,last,birthYear) {
-        this.first = first;
-        this.last = last;
-        this.birthYear = birthYear;
-    }
-    FullNameUser() {
-        console.log(`Hello, Mr.${this.first} ${this.last},Now you are ${2025 - this.birthYear} year old.`);
-    }
-}
-
-const jonitas = new PersonCl('jonita','gandhi',2004);
-jonitas.FullNameUser();
-console.log(jonitas.__proto__ === PersonCl.__proto__)
-PersonCl.prototype.greet = function() {
-    console.log(`Hello ${this.first},let's go on date!!`);
-}
-jonitas.greet();
 //Getter Setter for Objects
 const accounts = {
     name : 'Jonita',
@@ -104,3 +84,64 @@ const accounts = {
 console.log(accounts.latest);
 accounts.latest = 900;
 console.log(accounts.movements)
+
+// Classes Implemetations
+class PersonCl {
+    constructor(first,last,birthYear) {
+        this.first = first;
+        this.last = last;
+        this.birthYear = birthYear;
+    }
+    FullNameUser() {
+        console.log(`Hello, Mr.${this.first} ${this.last},Now you are ${2025 - this.birthYear} year old.`);
+        let StringVar = PersonCl.FullStatement()
+        console.log(StringVar)
+    }
+    get Age() {
+        return 2025 - this.birthYear;
+    }
+    static FullStatement() {
+        return `Hi,${this.first} is at age ${2025 - this.birthYear}.`;
+    }
+}
+
+const jonitas = new PersonCl('jonita','gandhi',2004);
+jonitas.FullNameUser();
+console.log(jonitas.__proto__ === PersonCl.__proto__)
+PersonCl.prototype.greet = function() {
+    console.log(`Hello ${this.first},let's go on date!!`);
+}
+jonitas.greet();
+console.log(jonitas.Age);
+const NewProto = {
+    calcAge() {
+        return 2025 - this.yearBirth;    
+    }
+}
+const steven = Object.create(NewProto);
+console.log(steven)
+steven.name = 'Super Steven';
+steven.yearBirth = 2009;
+console.log(steven.calcAge())
+console.log(steven.__proto__)
+
+//Challenge #2
+class speedCar {
+    constructor(make,speed) {
+        this.make = make;
+        this.speed = speed;
+    }
+
+    get speedUS() {
+        return `${Math.floor(this.speed / 1.6).toFixed(1)} mph`;
+    }
+
+    set speedUS(speed) {
+        this.speed = speed * 1.6
+    }
+}
+const Ford = new speedCar('Ford',120);
+console.log(Ford.speedUS);
+Ford.speedUS = 90;
+console.log(Ford.speedUS);
+//Inheritance Implementation in JS
