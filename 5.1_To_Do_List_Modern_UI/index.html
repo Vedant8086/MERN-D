@@ -1,0 +1,622 @@
+<!doctype html>
+<html class="dark" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>TaskFlow Desktop - Modern Minimalist</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#3b82f6", // More vibrant blue
+              "primary-hover": "#2563eb",
+              "background-light": "#f1f5f9", // Slate 100
+              "background-dark": "#0f172a", // Slate 900
+              "card-light": "#ffffff",
+              "card-dark": "#1e293b", // Slate 800
+              "border-light": "#e2e8f0", // Slate 200
+              "border-dark": "#334155", // Slate 700
+              "text-main-light": "#1e293b",
+              "text-main-dark": "#f8fafc",
+              "text-muted-light": "#64748b",
+              "text-muted-dark": "#94a3b8",
+              danger: "#ef4444",
+              warning: "#f59e0b",
+              success: "#10b981",
+            },
+            fontFamily: {
+              display: ["Inter", "sans-serif"],
+            },
+            boxShadow: {
+              soft: "0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03)",
+              glow: "0 0 15px rgba(59, 130, 246, 0.15)",
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+      }
+      ::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+      }
+      ::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #475569;
+        border-radius: 99px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #64748b;
+      }
+      .checkbox-wrapper input:checked + div {
+        background-color: #3b82f6;
+        border-color: #3b82f6;
+      }
+      .checkbox-wrapper input:checked + div svg {
+        display: block;
+      }
+    </style>
+  </head>
+  <body
+    class="bg-background-light dark:bg-background-dark text-text-main-light dark:text-text-main-dark antialiased min-h-screen flex flex-col font-display transition-colors duration-200 selection:bg-primary/30"
+  >
+    <header
+      class="flex items-center justify-between border-b border-border-light dark:border-border-dark bg-card-light dark:bg-card-dark px-6 h-16 sticky top-0 z-50 shadow-sm"
+    >
+      <div class="flex items-center gap-8">
+        <div class="flex items-center gap-2.5">
+          <div
+            class="bg-gradient-to-tr from-primary to-indigo-600 size-9 rounded-xl flex items-center justify-center shadow-lg shadow-primary/20"
+          >
+            <span class="material-symbols-outlined text-white text-[20px]"
+              >check</span
+            >
+          </div>
+          <h1
+            class="text-xl font-bold tracking-tight text-text-main-light dark:text-text-main-dark"
+          >
+            TaskFlow
+          </h1>
+        </div>
+        <div class="hidden md:flex items-center relative w-full max-w-sm group">
+          <span
+            class="material-symbols-outlined absolute left-3 text-text-muted-dark group-focus-within:text-primary transition-colors text-[20px]"
+            >search</span
+          >
+          <input
+            class="w-full h-10 pl-10 pr-4 rounded-xl bg-background-light dark:bg-background-dark border-transparent focus:bg-card-light dark:focus:bg-card-dark border focus:border-primary/50 text-sm focus:outline-none focus:ring-4 focus:ring-primary/10 placeholder:text-text-muted-dark transition-all"
+            placeholder="Quick search..."
+            type="text"
+          />
+          <div class="absolute right-3 flex gap-1">
+            <kbd
+              class="hidden lg:inline-flex items-center h-5 px-1.5 text-[10px] font-bold text-text-muted-dark bg-card-light dark:bg-card-dark border border-border-light dark:border-border-dark rounded-md shadow-sm"
+              >⌘K</kbd
+            >
+          </div>
+        </div>
+      </div>
+      <div class="flex items-center gap-2">
+        <button
+          class="flex items-center justify-center size-10 rounded-xl hover:bg-background-light dark:hover:bg-background-dark text-text-muted-dark hover:text-primary transition-colors"
+        >
+          <span class="material-symbols-outlined text-[22px]">help</span>
+        </button>
+        <button
+          class="flex items-center justify-center size-10 rounded-xl hover:bg-background-light dark:hover:bg-background-dark text-text-muted-dark hover:text-primary transition-colors relative"
+        >
+          <span class="material-symbols-outlined text-[22px]"
+            >notifications</span
+          >
+          <span
+            class="absolute top-2.5 right-2.5 size-2 bg-danger rounded-full ring-2 ring-card-light dark:ring-card-dark"
+          ></span>
+        </button>
+        <button
+          class="flex items-center justify-center size-10 rounded-xl hover:bg-background-light dark:hover:bg-background-dark text-text-muted-dark hover:text-primary transition-colors"
+        >
+          <span class="material-symbols-outlined text-[22px]">dark_mode</span>
+        </button>
+        <div
+          class="h-8 w-px bg-border-light dark:border-border-dark mx-2"
+        ></div>
+        <div
+          class="bg-center bg-no-repeat bg-cover rounded-xl size-10 ring-2 ring-border-light dark:ring-border-dark ring-offset-2 ring-offset-card-light dark:ring-offset-card-dark cursor-pointer hover:ring-primary transition-all"
+          style="
+            background-image: url(&quot;https://lh3.googleusercontent.com/aida-public/AB6AXuBKpIsB5lRGexu2eVqXdNu1KisarCbVS53XYa5ZSfZeQRArlOk5b2okY-XvvjCcS9l6JI-i9LLcgZIwlELgH-gLVMn7g84SWrCedODi_5wJx6xFhlNJuk4MPS5Xv_mrYStc6fLESq-kIaKvLqPGqHDVwSvBR4jYug2j019lOGxCf-0erJpbhl7-2hWb44dN9ktFt1vIizaknJ79IjKL2-QTDIIfAyo0eQxq3V5UjzP40f7-iOBMscm3vBzuYeHb0DKKuVl--ZJf99w&quot;);
+          "
+        ></div>
+      </div>
+    </header>
+    <div class="flex flex-1 overflow-hidden">
+      <aside
+        class="w-64 hidden md:flex flex-col bg-card-light dark:bg-card-dark border-r border-border-light dark:border-border-dark overflow-y-auto"
+      >
+        <div class="p-4 space-y-8">
+          <div class="space-y-1">
+            <p
+              class="px-3 text-[11px] font-bold text-text-muted-dark uppercase tracking-widest mb-3 ml-1"
+            >
+              Menu
+            </p>
+            <a
+              class="flex items-center gap-3 px-3 py-2.5 rounded-xl bg-primary/10 text-primary font-medium transition-all"
+              href="#"
+            >
+              <span
+                class="material-symbols-outlined filled text-[20px]"
+                style="font-variation-settings: &quot;FILL&quot; 1"
+                >wb_sunny</span
+              >
+              <span>Today</span>
+              <span
+                class="ml-auto text-xs font-bold bg-primary text-white px-2 py-0.5 rounded-md shadow-sm"
+                >4</span
+              >
+            </a>
+            <a
+              class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-text-muted-light dark:text-text-muted-dark hover:bg-background-light dark:hover:bg-background-dark hover:text-text-main-light dark:hover:text-text-main-dark transition-all group"
+              href="#"
+            >
+              <span
+                class="material-symbols-outlined text-[20px] group-hover:text-primary transition-colors"
+                >calendar_month</span
+              >
+              <span>Upcoming</span>
+            </a>
+            <a
+              class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-text-muted-light dark:text-text-muted-dark hover:bg-background-light dark:hover:bg-background-dark hover:text-text-main-light dark:hover:text-text-main-dark transition-all group"
+              href="#"
+            >
+              <span
+                class="material-symbols-outlined text-[20px] group-hover:text-primary transition-colors"
+                >check_circle</span
+              >
+              <span>Completed</span>
+            </a>
+            <a
+              class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-text-muted-light dark:text-text-muted-dark hover:bg-background-light dark:hover:bg-background-dark hover:text-text-main-light dark:hover:text-text-main-dark transition-all group"
+              href="#"
+            >
+              <span
+                class="material-symbols-outlined text-[20px] group-hover:text-warning transition-colors"
+                >star</span
+              >
+              <span>Important</span>
+            </a>
+          </div>
+          <div class="space-y-1">
+            <div class="flex items-center justify-between px-3 mb-3">
+              <p
+                class="text-[11px] font-bold text-text-muted-dark uppercase tracking-widest ml-1"
+              >
+                Projects
+              </p>
+              <button
+                class="text-text-muted-dark hover:text-primary transition-colors p-1 hover:bg-background-light dark:hover:bg-background-dark rounded"
+              >
+                <span class="material-symbols-outlined text-[18px]">add</span>
+              </button>
+            </div>
+            <a
+              class="flex items-center gap-3 px-3 py-2 rounded-xl text-text-muted-light dark:text-text-muted-dark hover:bg-background-light dark:hover:bg-background-dark hover:text-text-main-light dark:hover:text-text-main-dark transition-colors"
+              href="#"
+            >
+              <span
+                class="size-2.5 rounded-md bg-indigo-500 shadow-[0_0_8px_rgba(99,102,241,0.5)]"
+              ></span>
+              <span class="truncate">Q4 Marketing Plan</span>
+            </a>
+            <a
+              class="flex items-center gap-3 px-3 py-2 rounded-xl text-text-muted-light dark:text-text-muted-dark hover:bg-background-light dark:hover:bg-background-dark hover:text-text-main-light dark:hover:text-text-main-dark transition-colors"
+              href="#"
+            >
+              <span
+                class="size-2.5 rounded-md bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)]"
+              ></span>
+              <span class="truncate">Website Redesign</span>
+            </a>
+            <a
+              class="flex items-center gap-3 px-3 py-2 rounded-xl text-text-muted-light dark:text-text-muted-dark hover:bg-background-light dark:hover:bg-background-dark hover:text-text-main-light dark:hover:text-text-main-dark transition-colors"
+              href="#"
+            >
+              <span
+                class="size-2.5 rounded-md bg-rose-500 shadow-[0_0_8px_rgba(244,63,94,0.5)]"
+              ></span>
+              <span class="truncate">Mobile App Launch</span>
+            </a>
+          </div>
+          <div class="space-y-1">
+            <div class="flex items-center justify-between px-3 mb-3">
+              <p
+                class="text-[11px] font-bold text-text-muted-dark uppercase tracking-widest ml-1"
+              >
+                Tags
+              </p>
+              <button
+                class="text-text-muted-dark hover:text-primary transition-colors p-1 hover:bg-background-light dark:hover:bg-background-dark rounded"
+              >
+                <span class="material-symbols-outlined text-[18px]">add</span>
+              </button>
+            </div>
+            <div class="flex flex-wrap gap-2 px-3">
+              <span
+                class="px-2.5 py-1 bg-background-light dark:bg-background-dark border border-border-light dark:border-border-dark rounded-md text-[11px] font-medium text-text-muted-light dark:text-text-muted-dark hover:border-primary hover:text-primary cursor-pointer transition-colors"
+                >#work</span
+              >
+              <span
+                class="px-2.5 py-1 bg-background-light dark:bg-background-dark border border-border-light dark:border-border-dark rounded-md text-[11px] font-medium text-text-muted-light dark:text-text-muted-dark hover:border-primary hover:text-primary cursor-pointer transition-colors"
+                >#personal</span
+              >
+              <span
+                class="px-2.5 py-1 bg-background-light dark:bg-background-dark border border-border-light dark:border-border-dark rounded-md text-[11px] font-medium text-text-muted-light dark:text-text-muted-dark hover:border-primary hover:text-primary cursor-pointer transition-colors"
+                >#design</span
+              >
+            </div>
+          </div>
+        </div>
+        <div
+          class="mt-auto p-4 border-t border-border-light dark:border-border-dark"
+        >
+          <div
+            class="bg-gradient-to-br from-primary/10 to-indigo-600/10 p-4 rounded-xl border border-primary/10 relative overflow-hidden group"
+          >
+            <div
+              class="absolute -right-4 -top-4 bg-primary/10 size-20 rounded-full blur-xl group-hover:bg-primary/20 transition-all"
+            ></div>
+            <div class="flex items-start gap-3 relative z-10">
+              <span class="material-symbols-outlined text-primary text-[24px]"
+                >rocket_launch</span
+              >
+              <div>
+                <p
+                  class="text-sm font-bold text-text-main-light dark:text-text-main-dark mb-1"
+                >
+                  Pro Plan
+                </p>
+                <p
+                  class="text-[11px] text-text-muted-light dark:text-text-muted-dark mb-3 leading-tight"
+                >
+                  Unlock unlimited tasks and team collaboration.
+                </p>
+                <button
+                  class="text-xs font-semibold text-white bg-primary hover:bg-primary-hover px-3 py-1.5 rounded-lg shadow-sm shadow-primary/30 transition-all w-full"
+                >
+                  Upgrade
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </aside>
+      <main
+        class="flex-1 flex flex-col min-w-0 overflow-hidden bg-background-light dark:bg-background-dark relative"
+      >
+        <div class="flex-1 overflow-y-auto px-4 sm:px-8 py-8 custom-scrollbar">
+          <div class="max-w-4xl mx-auto space-y-8">
+            <div
+              class="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-2"
+            >
+              <div>
+                <h2
+                  class="text-4xl font-bold text-text-main-light dark:text-text-main-dark tracking-tight"
+                >
+                  Today
+                </h2>
+                <p
+                  class="text-text-muted-light dark:text-text-muted-dark mt-2 flex items-center gap-2 font-medium"
+                >
+                  <span class="material-symbols-outlined text-[20px]"
+                    >calendar_today</span
+                  >
+                  Tuesday, October 24
+                </p>
+              </div>
+              <div class="flex items-center gap-3">
+                <span class="text-sm font-medium text-text-muted-dark"
+                  >Sort:</span
+                >
+                <button
+                  class="flex items-center gap-2 text-sm font-medium text-text-main-light dark:text-text-main-dark bg-card-light dark:bg-card-dark border border-border-light dark:border-border-dark px-4 py-2 rounded-xl hover:border-primary hover:shadow-sm transition-all"
+                >
+                  Priority
+                  <span class="material-symbols-outlined text-[18px]"
+                    >keyboard_arrow_down</span
+                  >
+                </button>
+              </div>
+            </div>
+            <div
+              class="bg-card-light dark:bg-card-dark rounded-2xl shadow-soft dark:shadow-none border border-border-light dark:border-border-dark p-3 group focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary transition-all duration-300"
+            >
+              <div class="flex items-center gap-4 px-3 py-2">
+                <div
+                  class="size-6 rounded-md border-2 border-border-light dark:border-border-dark flex items-center justify-center"
+                >
+                  <span
+                    class="material-symbols-outlined text-transparent text-[16px]"
+                    >add</span
+                  >
+                </div>
+                <input
+                  class="flex-1 bg-transparent border-none focus:ring-0 text-text-main-light dark:text-text-main-dark placeholder:text-text-muted-dark/70 text-lg h-10 font-medium"
+                  placeholder="Add a new task..."
+                  type="text"
+                />
+              </div>
+              <div
+                class="flex items-center justify-between border-t border-border-light dark:border-border-dark mt-2 pt-3 px-2"
+              >
+                <div class="flex gap-2">
+                  <button
+                    class="flex items-center gap-2 px-3 py-1.5 rounded-lg hover:bg-background-light dark:hover:bg-background-dark text-text-muted-light dark:text-text-muted-dark text-xs font-semibold transition-colors border border-transparent hover:border-border-light dark:hover:border-border-dark"
+                  >
+                    <span class="material-symbols-outlined text-[18px]"
+                      >calendar_today</span
+                    >
+                    Today
+                  </button>
+                  <button
+                    class="flex items-center gap-2 px-3 py-1.5 rounded-lg hover:bg-background-light dark:hover:bg-background-dark text-text-muted-light dark:text-text-muted-dark text-xs font-semibold transition-colors border border-transparent hover:border-border-light dark:hover:border-border-dark"
+                  >
+                    <span class="material-symbols-outlined text-[18px]"
+                      >flag</span
+                    >
+                    Priority
+                  </button>
+                  <button
+                    class="flex items-center gap-2 px-3 py-1.5 rounded-lg hover:bg-background-light dark:hover:bg-background-dark text-text-muted-light dark:text-text-muted-dark text-xs font-semibold transition-colors border border-transparent hover:border-border-light dark:hover:border-border-dark"
+                  >
+                    <span class="material-symbols-outlined text-[18px]"
+                      >label</span
+                    >
+                    Tag
+                  </button>
+                </div>
+                <button
+                  class="bg-primary hover:bg-primary-hover text-white rounded-lg px-4 py-2 text-xs font-bold transition-all shadow-lg shadow-primary/20 hover:shadow-primary/40 transform active:scale-95"
+                >
+                  Add Task
+                </button>
+              </div>
+            </div>
+            <div class="space-y-4">
+              <div
+                class="group flex flex-col sm:flex-row sm:items-center gap-4 p-5 rounded-2xl bg-card-light dark:bg-card-dark border border-border-light dark:border-border-dark hover:border-primary/50 dark:hover:border-primary/50 transition-all cursor-pointer shadow-sm hover:shadow-lg dark:hover:shadow-glow relative overflow-hidden"
+              >
+                <div
+                  class="absolute left-0 top-0 bottom-0 w-1.5 bg-danger"
+                ></div>
+                <div class="flex items-start sm:items-center gap-4 flex-1 pl-2">
+                  <label
+                    class="checkbox-wrapper relative flex items-center cursor-pointer"
+                  >
+                    <input class="peer sr-only" type="checkbox" title="Mark task as complete" />
+                    <div
+                      class="size-6 rounded-full border-2 border-text-muted-dark peer-hover:border-primary transition-all flex items-center justify-center bg-transparent"
+                    >
+                      <svg
+                        class="hidden w-3.5 h-3.5 text-white fill-current"
+                        viewBox="0 0 20 20"
+                      >
+                        <path d="M0 11l2-2 5 5L18 3l2 2L7 18z"></path>
+                      </svg>
+                    </div>
+                  </label>
+                  <div class="flex flex-col gap-1">
+                    <span
+                      class="text-text-main-light dark:text-text-main-dark font-semibold text-lg leading-tight group-hover:text-primary transition-colors"
+                      >Review Q4 marketing plan</span
+                    >
+                    <span
+                      class="text-sm text-text-muted-light dark:text-text-muted-dark line-clamp-1"
+                      >Finalize budget allocation and channel strategy.</span
+                    >
+                  </div>
+                </div>
+                <div class="flex items-center gap-6 ml-12 sm:ml-0">
+                  <div
+                    class="flex items-center gap-2 px-3 py-1 rounded-full bg-background-light dark:bg-background-dark border border-border-light dark:border-border-dark"
+                  >
+                    <span class="size-2 rounded-full bg-indigo-500"></span>
+                    <span
+                      class="text-xs font-medium text-text-muted-light dark:text-text-muted-dark"
+                      >Work</span
+                    >
+                  </div>
+                  <div
+                    class="flex items-center gap-1.5 text-xs text-danger font-bold bg-danger/10 px-2.5 py-1 rounded-full"
+                  >
+                    <span
+                      class="material-symbols-outlined text-[16px] filled"
+                      style="font-variation-settings: &quot;FILL&quot; 1"
+                      >flag</span
+                    >
+                    High
+                  </div>
+                  <div
+                    class="flex items-center gap-1.5 text-xs text-text-muted-light dark:text-text-muted-dark font-medium"
+                  >
+                    <span class="material-symbols-outlined text-[16px]"
+                      >schedule</span
+                    >
+                    2:00 PM
+                  </div>
+                </div>
+              </div>
+              <div
+                class="group flex flex-col sm:flex-row sm:items-center gap-4 p-5 rounded-2xl bg-card-light dark:bg-card-dark border border-border-light dark:border-border-dark hover:border-primary/50 dark:hover:border-primary/50 transition-all cursor-pointer shadow-sm hover:shadow-lg dark:hover:shadow-glow relative overflow-hidden"
+              >
+                <div
+                  class="absolute left-0 top-0 bottom-0 w-1.5 bg-warning"
+                ></div>
+                <div class="flex items-start sm:items-center gap-4 flex-1 pl-2">
+                  <label
+                    class="checkbox-wrapper relative flex items-center cursor-pointer"
+                  >
+                    <input class="peer sr-only" type="checkbox" title="Mark task as complete" />
+                    <div
+                      class="size-6 rounded-full border-2 border-text-muted-dark peer-hover:border-primary transition-all flex items-center justify-center bg-transparent"
+                    >
+                      <svg
+                        class="hidden w-3.5 h-3.5 text-white fill-current"
+                        viewBox="0 0 20 20"
+                      >
+                        <path d="M0 11l2-2 5 5L18 3l2 2L7 18z"></path>
+                      </svg>
+                    </div>
+                  </label>
+                  <div class="flex flex-col gap-1">
+                    <span
+                      class="text-text-main-light dark:text-text-main-dark font-semibold text-lg leading-tight group-hover:text-primary transition-colors"
+                      >Update team meeting slides</span
+                    >
+                  </div>
+                </div>
+                <div class="flex items-center gap-6 ml-12 sm:ml-0">
+                  <div
+                    class="flex items-center gap-2 px-3 py-1 rounded-full bg-background-light dark:bg-background-dark border border-border-light dark:border-border-dark"
+                  >
+                    <span class="size-2 rounded-full bg-emerald-500"></span>
+                    <span
+                      class="text-xs font-medium text-text-muted-light dark:text-text-muted-dark"
+                      >Design</span
+                    >
+                  </div>
+                  <div
+                    class="flex items-center gap-1.5 text-xs text-warning font-bold bg-warning/10 px-2.5 py-1 rounded-full"
+                  >
+                    <span
+                      class="material-symbols-outlined text-[16px] filled"
+                      style="font-variation-settings: &quot;FILL&quot; 1"
+                      >flag</span
+                    >
+                    Med
+                  </div>
+                  <div
+                    class="flex items-center gap-1.5 text-xs text-text-muted-light dark:text-text-muted-dark font-medium"
+                  >
+                    <span class="material-symbols-outlined text-[16px]"
+                      >schedule</span
+                    >
+                    4:30 PM
+                  </div>
+                </div>
+              </div>
+              <div
+                class="group flex flex-col sm:flex-row sm:items-center gap-4 p-5 rounded-2xl bg-card-light dark:bg-card-dark border border-border-light dark:border-border-dark hover:border-primary/50 dark:hover:border-primary/50 transition-all cursor-pointer shadow-sm hover:shadow-lg dark:hover:shadow-glow relative overflow-hidden"
+              >
+                <div
+                  class="absolute left-0 top-0 bottom-0 w-1.5 bg-border-light dark:bg-border-dark"
+                ></div>
+                <div class="flex items-start sm:items-center gap-4 flex-1 pl-2">
+                  <label
+                    class="checkbox-wrapper relative flex items-center cursor-pointer"
+                  >
+                    <input class="peer sr-only" type="checkbox" title="Mark task as complete" />
+                    <div
+                      class="size-6 rounded-full border-2 border-text-muted-dark peer-hover:border-primary transition-all flex items-center justify-center bg-transparent"
+                    >
+                      <svg
+                        class="hidden w-3.5 h-3.5 text-white fill-current"
+                        viewBox="0 0 20 20"
+                      >
+                        <path d="M0 11l2-2 5 5L18 3l2 2L7 18z"></path>
+                      </svg>
+                    </div>
+                  </label>
+                  <div class="flex flex-col gap-1">
+                    <span
+                      class="text-text-main-light dark:text-text-main-dark font-semibold text-lg leading-tight group-hover:text-primary transition-colors"
+                      >Call with client regarding new contract</span
+                    >
+                  </div>
+                </div>
+                <div class="flex items-center gap-6 ml-12 sm:ml-0">
+                  <div
+                    class="flex items-center gap-2 px-3 py-1 rounded-full bg-background-light dark:bg-background-dark border border-border-light dark:border-border-dark"
+                  >
+                    <span class="size-2 rounded-full bg-purple-500"></span>
+                    <span
+                      class="text-xs font-medium text-text-muted-light dark:text-text-muted-dark"
+                      >Client</span
+                    >
+                  </div>
+                  <div
+                    class="flex items-center gap-1.5 text-xs text-text-muted-dark font-bold bg-background-light dark:bg-background-dark px-2.5 py-1 rounded-full border border-border-light dark:border-border-dark"
+                  >
+                    <span
+                      class="material-symbols-outlined text-[16px] filled"
+                      style="font-variation-settings: &quot;FILL&quot; 1"
+                      >flag</span
+                    >
+                    Low
+                  </div>
+                  <div
+                    class="flex items-center gap-1.5 text-xs text-text-muted-light dark:text-text-muted-dark font-medium"
+                  >
+                    <span class="material-symbols-outlined text-[16px]"
+                      >schedule</span
+                    >
+                    5:00 PM
+                  </div>
+                </div>
+              </div>
+              <div
+                class="group flex flex-col sm:flex-row sm:items-center gap-4 p-5 rounded-2xl bg-card-light/50 dark:bg-card-dark/50 border border-border-light dark:border-border-dark opacity-60 hover:opacity-100 transition-all cursor-pointer relative overflow-hidden"
+              >
+                <div class="flex items-start sm:items-center gap-4 flex-1 pl-2">
+                  <div
+                    class="size-6 rounded-full bg-primary border-2 border-primary flex items-center justify-center transition-colors"
+                  >
+                    <span
+                      class="material-symbols-outlined text-white text-[16px] font-bold"
+                      >check</span
+                    >
+                  </div>
+                  <div class="flex flex-col gap-1">
+                    <span
+                      class="text-text-muted-light dark:text-text-muted-dark font-semibold text-lg leading-tight line-through decoration-2 decoration-text-muted-dark/50"
+                      >Draft blog post for new feature launch</span
+                    >
+                  </div>
+                </div>
+                <div class="flex items-center gap-6 ml-12 sm:ml-0">
+                  <div
+                    class="flex items-center gap-1.5 text-xs text-success font-bold bg-success/10 px-3 py-1 rounded-full"
+                  >
+                    <span class="material-symbols-outlined text-[16px]"
+                      >check_circle</span
+                    >
+                    Done
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button
+          class="md:hidden absolute bottom-6 right-6 size-14 bg-primary hover:bg-primary-hover text-white rounded-full shadow-lg shadow-primary/40 flex items-center justify-center transition-transform hover:scale-105 z-50"
+        >
+          <span class="material-symbols-outlined text-[28px]">add</span>
+        </button>
+      </main>
+    </div>
+  </body>
+</html>
