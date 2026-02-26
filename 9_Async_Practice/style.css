@@ -100,6 +100,7 @@ body {
 
 .btn-country {
   border: none;
+  margin-top : 20px;
   font-size: 2rem;
   padding: 2rem 5rem;
   border-radius: 0.7rem;
