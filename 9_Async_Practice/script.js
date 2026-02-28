@@ -1,5 +1,4 @@
-"use strict";
-
+import { Intro } from './Another_functions.js';
 const btn = document.querySelector(".btn-country");
 const countriesContainer = document.querySelector(".countries");
 
@@ -10,23 +9,32 @@ const countriesContainer = document.querySelector(".countries");
 // https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lng}
 
 ///////////////////////////////////////
-const geoLocation = async function(position) {
-    const {latitude} = position.coords;
-    const {longitude} = position.coords;
-    // let lats = -10.511740; lng = -53.492309;
-    console.log(`latitude is ${latitude} and longitude is ${longitude}.`);
-    const response = await fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}`)
-    console.log(response)
-    const data = await response.json();
-    console.log(data);
-    getCountriesData(data.countryName)
-}
-navigator.geolocation.getCurrentPosition(function(position) {
-    geoLocation(position);
-},function(e) {
-    console.log('Error to get the location',e.message);
-});
-
+// Geolocation Integration....
+// const geoLocation = async function(position) {
+//     const {latitude} = position.coords;
+//     const {longitude} = position.coords;
+//     // let lats = -10.511740; lng = -53.492309;
+//     console.log(`latitude is ${latitude} and longitude is ${longitude}.`) ;
+//     const response = await fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}`)
+//     console.log(response)
+//     const data = await response.json();
+//     console.log(data);
+//     getCountriesData(data.countryName)
+// }
+// navigator.geolocation.getCurrentPosition(function(position) {
+//     geoLocation(position);
+// },function(e) {
+//     console.log('Error to get the location',e.message);
+// });
+//Will Executed first due to microtask queue.
+const getPosition = function() {
+  return new Promise(function(resolve,reject) {
+    navigator.geolocation.getCurrentPosition(resolve,reject);
+  });
+};
+getPosition()
+.then(pos => console.log(`${pos.coords.latitude} is latitude and ${pos.coords.longitude} is longitude.`))
+.catch(err =>console.log(err.message))
 const renderCountryData = function (data,className='',anotherborder = 0) {
     const html = `
             <article class="country ${className}">
@@ -96,7 +104,7 @@ const getCountriesData = async function (countryName) {
   }
 } ;
 // getCountryData(countryName);
-// getCountryData('portugal')
+getCountryData('portugal')
 // getCountryData('spain')
 
 btn.addEventListener('click',function() {
@@ -118,6 +126,27 @@ const orderCoffee = new Promise((resolve, reject) => {
   }, 6000);
 });
 
+const getThreeCountries = async function(c1,c2,c3) {
+  try {
+    const data1 = await (await fetch(`https://restcountries.com/v3.1/name/${c1}`)).json();
+    const data2 = await (await fetch(`https://restcountries.com/v3.1/name/${c2}`)).json();
+    const data3 = await (await fetch(`https://restcountries.com/v3.1/name/${c3}`)).json();
+    return [data1.capital[0],data2.capital[0],data3.capital[0]];
+  } catch (err) {
+    console.log(err)
+    // renderError(err);
+  }
+};
+
+// getThreeCountries('India','Bhutan','Canada').then(arr => console.log(arr))
+
+Promise.allSettled([
+  Promise.resolve('Success'),
+  Promise.reject('error'),
+  Promise.resolve('another success')
+]).then(arr => console.log(arr));
+
+Intro('Soham Kulkarni');
 orderCoffee
   .then((message) => {
     console.log(message);
@@ -131,3 +160,15 @@ orderCoffee
     console.log(m);
     console.log("Going to Work then!!");
   });
+
+
+// (async function() {
+//   try {
+//     const city = await getCountriesData('India');
+//     console.log(city);
+//   } catch(err) {
+//     console.log(err.message);
+
+//     throw err;
+//   }
+// })();
