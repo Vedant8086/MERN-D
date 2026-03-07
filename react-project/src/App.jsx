@@ -2,7 +2,6 @@ import { useState } from "react";
 
 function App() {
   const [activeCount, setActiveCount] = useState(Number(localStorage.getItem('activeCount')));
-  
   return (
     <div className="bg-gray-500 flex flex-col h-screen items-center justify-center gap-6">
       
