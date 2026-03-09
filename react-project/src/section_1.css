@@ -18,13 +18,13 @@ html {
 }
 
 header {
-    text-align : center;
-    margin: 3rem 0;
+  text-align: center;
+  margin: 3rem 0;
 }
 
 header img {
-  display: block;      
-  margin: 0 auto;      
+  display: block;
+  margin: 0 auto;
   height: 5rem;
   width: 10rem;
   object-fit: cover;
@@ -36,6 +36,7 @@ header h1 {
   font-size: 5rem;
   background: linear-gradient(40deg, #ea00ff, #ea00ff, #03d5ff, #03d5ff);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
   filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.5));
 }
@@ -86,6 +87,8 @@ main h2 {
   height: 4rem;
   width: 6rem;
   object-fit: cover;
+  display: block;
+  margin: 0 auto;
 }
 
 #core-concepts li h3 {
