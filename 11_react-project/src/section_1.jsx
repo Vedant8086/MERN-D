@@ -1,8 +1,4 @@
 import { useState } from "react";
-import config from "./assets/config.png";
-import components from "./assets/components.png"
-import jsxUI from "./assets/jsx-ui.png";
-import stateMG from "./assets/state-mgmt.png";
 import ReactCoreConcepts from "./assets/react-core-concepts.png";
 import TabButton from "./TabButton.jsx";
 import { CORE_CONCEPTS, EXAMPLES } from "./Data.jsx";
