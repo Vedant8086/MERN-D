@@ -1,0 +1,1 @@
+console.log(`This is CineSearch Project!!!!Welcome!!!`);

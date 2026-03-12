@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>CineSearch - Discover Your Next Favorite Movie</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#d97757", // Muted orange, similar to Claude
+                        "accent-pink": "#e5a99c",
+                        "background-light": "#fdfcfaf5", // Off-white/cream
+                        "background-dark": "#1a1a1a",
+                    },
+                    fontFamily: {
+                        "display": ["Newsreader", "serif"],
+                        "sans": ["system-ui", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto", "Helvetica Neue", "Arial", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "2xl": "1rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+    <script defer type="module" src="script.js"></script>
+    <style>
+        body {
+            font-family: 'Newsreader', serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-rendering: optimizeLegibility;
+            letter-spacing: 0.015em;
+            /* Unsticks the text globally */
+            line-height: 1.6;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        .font-display {
+            font-family: 'Newsreader', serif;
+            letter-spacing: -0.01em;
+            /* Keep headings slightly tighter */
+        }
+
+        .glass-effect {
+            background: rgba(26, 26, 26, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(217, 119, 87, 0.1);
+        }
+    </style>
+</head>
+
+<body
+    class="bg-background-light dark:bg-background-dark text-slate-800 dark:text-slate-200 transition-colors duration-300 font-display selection:bg-primary/20 selection:text-primary">
+    <!-- Sticky Navbar -->
+    <nav
+        class="sticky top-0 z-50 w-full border-b border-slate-200 dark:border-white/5 bg-[#fdfcfaf5] dark:bg-background-dark/80 backdrop-blur-md transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex items-center gap-2">
+                    <span class="material-symbols-outlined text-primary text-2xl">movie_filter</span>
+                    <span class="text-xl font-black tracking-tighter text-slate-900 dark:text-white">CineSearch</span>
+                </div>
+                <!-- Navigation Links -->
+                <div class="hidden md:flex items-center gap-8">
+                    <a class="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-white transition-colors"
+                        href="#">Search</a>
+                    <a class="flex items-center gap-2 text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-white transition-colors relative"
+                        href="#">
+                        <span>Favorites</span>
+                        <div class="flex items-center">
+                            <span class="material-symbols-outlined text-[20px]">favorite</span>
+                            <span
+                                class="absolute -top-2 -right-3 flex h-4 w-4 items-center justify-center rounded-full bg-primary text-[10px] font-bold text-white">0</span>
+                        </div>
+                    </a>
+                </div>
+                <!-- Profile/Mobile -->
+                <div class="flex items-center gap-4">
+                    <button id="theme-toggle-btn"
+                        class="p-2 text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-white transition-colors"
+                        title="Toggle Light/Dark Mode">
+                        <span class="material-symbols-outlined dark:hidden">dark_mode</span>
+                        <span class="material-symbols-outlined hidden dark:block">light_mode</span>
+                    </button>
+                    <div id="user-profile-icon"
+                        class="h-8 w-8 rounded-full bg-primary/20 border border-primary/30 overflow-hidden cursor-pointer">
+                        <img class="h-full w-full object-cover" data-alt="User avatar profile picture circular"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDXGQ3VcVugsbahgypcLXOh4cffGcxoFm0-0mdmCQSFzaL0Y_5Wvgoa4bzhdHgM-Cr8-U2pt8rarWP3NO1uNTC1UINwHbFuOIrErkLzCPzsWkMJH4JvW2EXpLLS4Shpacmr0Xz6UuCFFkkZ4doxl40qUmSSaXrlUH6mEghoZjDpqF6Hl9fpBGoq5Z_CS27zhaDbIg5vznwDksWLBnJXNBV6_d8T7gbGClX1Pj_i9WY3fPeNbl2xRo6Sn7LeH9ruUyFr7vLwne4V5IM" />
+                    </div>
+                    <button id="mobile-menu-btn"
+                        class="p-2 text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-white md:hidden transition-colors">
+                        <span class="material-symbols-outlined">menu</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu (hidden by default) -->
+        <div id="mobile-menu"
+            class="hidden md:hidden border-t border-slate-200 dark:border-white/5 bg-white dark:bg-background-dark transition-colors duration-300">
+            <div class="px-4 pt-2 pb-4 space-y-1">
+                <a class="block px-3 py-2 rounded-md font-medium text-slate-800 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-primary transition-colors"
+                    href="#">Search</a>
+                <a class="block px-3 py-2 rounded-md font-medium text-slate-800 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-primary transition-colors"
+                    href="#">Favorites</a>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <!-- Hero Section -->
+        <section class="relative min-h-[85vh] flex flex-col items-center justify-center px-4 overflow-hidden">
+            <!-- Hero Background (Blurred Cinematic) -->
+            <div
+                class="absolute inset-0 z-0 bg-background-light dark:bg-background-dark transition-colors duration-300">
+                <div
+                    class="absolute inset-0 bg-gradient-to-b from-background-light/40 via-background-light/90 to-background-light dark:from-background-dark/60 dark:via-background-dark/90 dark:to-background-dark z-10 transition-colors duration-300">
+                </div>
+                <img class="w-full h-full object-cover filter blur-md scale-105 opacity-10 dark:opacity-20 mix-blend-overlay"
+                    data-alt="Blurred dark cinematic movie theater background"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuAt42DyGJcbMw1BrXqAGSnQTwPpz6vm6un4UMaCKuyKxtoCw-C0fR904SGfg_hcYR9zIRL6atTGHxPHOFM0wZWbLZsAB-g5KTwwL_c3SQbtgTuXZdOxPkeK2jUB21gs-baewpVHKY-I7ZGQ4x5qopz9rDLlc_uoC2rr1zu6EAHDotkYm-ez6VuxPKxZC3rww0Y8DTj5PxWNlDaPe6mCfHXtdlkBts8wKrcI-xPfQwqMRm_FCM01D8RipoQf6TwN-GCxqascawuzti0" />
+            </div>
+            <!-- Hero Content -->
+            <div class="relative z-20 max-w-4xl w-full text-center space-y-8 px-4 sm:px-0 mt-10 md:mt-0">
+                <div class="space-y-6">
+                    <h1
+                        class="text-4xl sm:text-5xl md:text-7xl font-normal tracking-tight text-slate-900 dark:text-slate-100 leading-tight">
+                        Find Any Movie, Instantly
+                    </h1>
+                    <p
+                        class="text-base sm:text-lg md:text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto font-light leading-relaxed tracking-normal">
+                        Search from millions of movies and save your all-time favorites
+                    </p>
+                </div>
+                <!-- Large Search Bar -->
+                <div class="w-full max-w-2xl mx-auto flex justify-center">
+                    <div
+                        class="glass-effect rounded-full p-1.5 sm:p-2 flex items-center shadow-[0_8px_30px_rgb(0,0,0,0.08)] dark:shadow-[0_8px_30px_rgb(0,0,0,0.2)] group focus-within:ring-2 focus-within:ring-primary/40 transition-all bg-white/60 dark:bg-black/20 w-full max-w-xl border border-slate-200 dark:border-white/10">
+                        <div
+                            class="pl-3 sm:pl-5 pr-1 sm:pr-2 text-slate-500 dark:text-slate-400 flex items-center justify-center">
+                            <span class="material-symbols-outlined text-[22px]">search</span>
+                        </div>
+                        <input
+                            class="bg-transparent border-none focus:ring-0 text-slate-900 dark:text-white placeholder-slate-500 w-full text-base sm:text-lg py-2 sm:py-3.5 font-medium outline-none placeholder:font-display"
+                            placeholder="Search movies, directors..." type="text" />
+                        <button
+                            class="bg-primary hover:bg-primary/90 text-white px-5 sm:px-8 py-2 sm:py-3 rounded-full font-medium transition-all shadow-md shadow-primary/20 flex items-center justify-center gap-1 sm:gap-2 whitespace-nowrap text-sm sm:text-base mr-0.5">
+                            Search
+                        </button>
+                    </div>
+                </div>
+                <!-- Genre Tags -->
+                <div class="flex flex-wrap justify-center items-center gap-3 pt-6">
+                    <button
+                        class="px-5 py-1.5 rounded-full border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800/80 text-slate-700 dark:text-slate-300 text-sm hover:border-primary hover:text-primary dark:hover:border-primary transition-all shadow-sm">Action</button>
+                    <button
+                        class="px-5 py-1.5 rounded-full border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800/80 text-slate-700 dark:text-slate-300 text-sm hover:border-primary hover:text-primary dark:hover:border-primary transition-all shadow-sm">Drama</button>
+                    <button
+                        class="px-5 py-1.5 rounded-full border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800/80 text-slate-700 dark:text-slate-300 text-sm hover:border-primary hover:text-primary dark:hover:border-primary transition-all shadow-sm">Sci-Fi</button>
+                    <button
+                        class="px-5 py-1.5 rounded-full border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800/80 text-slate-700 dark:text-slate-300 text-sm hover:border-primary hover:text-primary dark:hover:border-primary transition-all shadow-sm">Horror</button>
+                    <button
+                        class="px-5 py-1.5 rounded-full border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800/80 text-slate-700 dark:text-slate-300 text-sm hover:border-primary hover:text-primary dark:hover:border-primary transition-all shadow-sm">Comedy</button>
+                </div>
+            </div>
+            <!-- Scroll Indicator -->
+            <div class="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 text-slate-500">
+                <span class="material-symbols-outlined animate-bounce">keyboard_double_arrow_down</span>
+            </div>
+        </section>
+        <!-- Featured Section (Clean Dark Cards) -->
+        <section class="max-w-7xl mx-auto px-4 py-20">
+            <div class="flex items-center justify-between mb-10">
+                <h2
+                    class="text-xl md:text-2xl font-normal text-slate-900 dark:text-white flex items-center gap-2 md:gap-3 transition-colors duration-300">
+                    <span class="material-symbols-outlined text-primary">trending_up</span>
+                    Trending Now
+                </h2>
+                <a class="text-sm font-semibold text-primary hover:text-accent-pink transition-colors" href="#">View
+                    All</a>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
+                <!-- Movie Card 1 -->
+                <div
+                    class="group relative aspect-[2/3] rounded-xl overflow-hidden cursor-pointer transition-transform hover:-translate-y-2 border border-slate-200 dark:border-white/10 shadow-sm">
+                    <img class="w-full h-full object-cover" data-alt="Cinematic movie poster for space adventure"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuCMiPJLDjGkk7KXzJRY9I_-ze8uWdTEIGfDdnfIdjEz_pYhGxiH4mFk0rV_KyFB9_vHVQS5V4xpxTfG9vJc-E1FGZuvOT4GtMse4x32tHcXKrIIOjSVxsq6YSDi3qer5mhKa0NfdQIh4jGjXtCOtX0Pi8obCg9aYVPdMKqzbM_gqKieABhIJ3ghRL-ksyEzbss6t3KsY0Ywu7Hr-1mOjodDHVBwG1_wxoaqlvbNPrKrnEILQLBljajUbV74f8EWzC7wtaX6hQCYYBc" />
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-background-dark via-background-dark/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity p-4 flex flex-col justify-end text-left">
+                        <p class="text-white text-lg tracking-normal">The Last Frontier</p>
+                        <p class="text-slate-300 text-sm font-light opacity-80">Sci-Fi • 2024</p>
+                    </div>
+                </div>
+                <!-- Movie Card 2 -->
+                <div
+                    class="group relative aspect-[2/3] rounded-xl overflow-hidden cursor-pointer transition-transform hover:-translate-y-2 border border-slate-200 dark:border-white/10 shadow-sm">
+                    <img class="w-full h-full object-cover" data-alt="Cinematic movie poster for dramatic noir film"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuCBYfI3IprHvQT4o_94Nyzxlar4xY41SnqvhhP4VwnW7vwkQVq3iS40ODHCZaj4xIKquettMSdH7rVSaLlfIf0-8mLOvufdcf8JEvIQyfk2Vq4RMgtzebYvBzB2gJXlYceaNA5RNzPnZnNIip4wTM4NqCQlAb9lGVHh_z-M1SjlOeXdZCorGn4He1yxLrqX0TE33Dj-ftIbR24kT9cxTOlzukxDeREoyTv02KYHJrmGyyzY4QzXOMnoApkfpkPTDg8yvy8i3E8jKnI" />
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-background-dark via-background-dark/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity p-4 flex flex-col justify-end text-left">
+                        <p class="text-white text-lg tracking-normal">Midnight Echoes</p>
+                        <p class="text-slate-300 text-sm font-light opacity-80">Drama • 2023</p>
+                    </div>
+                </div>
+                <!-- Movie Card 3 -->
+                <div
+                    class="group relative aspect-[2/3] rounded-xl overflow-hidden cursor-pointer transition-transform hover:-translate-y-2 border border-slate-200 dark:border-white/10 shadow-sm">
+                    <img class="w-full h-full object-cover" data-alt="Cinematic movie poster for vintage classic"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuDSF19UP842JmmTvYiRLRnA4IYu10S5ny6E95i4svymmDtq2TGhNCwzkUX9o-GrY2qDiul5OUyUnsOUx2gMsWnYKp84yS-csLsX9qxlm6NeErv7SPhQEKU3lOIYwEO0S3v2CbwrZicHqvLuZbLGLBYcQhiRj_X3aaQ24-WnAEkNqd-ZobRKKbXW4ja4AFJz4O1LxhTh-gZzYGoVcZFVJpghBVxNzhdh2DrIApbqn_azHeMdIO3TVALooi1KMsMpQnKam824ZzBWKOs" />
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-background-dark via-background-dark/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity p-4 flex flex-col justify-end text-left">
+                        <p class="text-white text-lg tracking-normal">Silent Cinema</p>
+                        <p class="text-slate-300 text-sm font-light opacity-80">History • 2024</p>
+                    </div>
+                </div>
+                <!-- Movie Card 4 -->
+                <div
+                    class="group relative aspect-[2/3] rounded-xl overflow-hidden cursor-pointer transition-transform hover:-translate-y-2 border border-slate-200 dark:border-white/10 shadow-sm">
+                    <img class="w-full h-full object-cover" data-alt="Cinematic movie poster for action thriller"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuANnxLdWiEmO3TJvRRo6uNXO4YIU0yAbN4OeFIrxjPValNWnDcv2eqo8lDniWboWct78EpkJEFvYCqLcmo2VIXbvJctQeocep_8sMXGzyA_c63kg7eq6LWMXgFuuC_02HzyCm_9vFahR80qXrzQWRvVkMgH6gUUQG4Tufup4TBg40ejtwg-JpwqSZqE5KhMasPj6TZi6cVbDHmJeH6tCLgNyCHo6tmhlpA3Rgd7UDuAF9ooU9PP3qw6juU0Pv9q9HpSTn-sdUhA0GA" />
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-background-dark via-background-dark/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity p-4 flex flex-col justify-end text-left">
+                        <p class="text-white text-lg tracking-normal">Velocity Point</p>
+                        <p class="text-slate-300 text-sm font-light opacity-80">Action • 2024</p>
+                    </div>
+                </div>
+                <!-- Movie Card 5 -->
+                <div
+                    class="group relative aspect-[2/3] rounded-xl overflow-hidden cursor-pointer transition-transform hover:-translate-y-2 border border-slate-200 dark:border-white/10 shadow-sm">
+                    <img class="w-full h-full object-cover" data-alt="Cinematic movie poster for horror mystery"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuAEMDeSPBcK6tT1iR0oQ4U66O4aYtHKJWzOeBSxrvkPoY5M6vQbbGuU__nGhtJtdAwATPmAws488Twj839JJeGKFNfcfSkmWRDnNFOo_JTkYU6FDQf0cr0RNY4DA9DiuVor_Sg2nFDIcSCQhWKeEyhhFVqZDJmydkqcq0QXKw2V7uYf17ev2ciAyfK3k5gvgZYTUfULG6ile7qr0ma5x11yjDEYGFtFLXSmZgd6I0nOSBWEL25kAW5Q70vzvkswMKO9tCpzzmbLaH8" />
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-background-dark via-background-dark/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity p-4 flex flex-col justify-end text-left">
+                        <p class="text-white text-lg tracking-normal">The Shadow Below</p>
+                        <p class="text-slate-300 text-sm font-light opacity-80">Horror • 2023</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <!-- Footer -->
+    <footer class="border-t border-slate-200 dark:border-white/5 py-12 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-6 md:gap-8">
+            <div class="flex items-center gap-2">
+                <span class="material-symbols-outlined text-primary text-2xl">movie_filter</span>
+                <span class="text-lg font-black text-slate-900 dark:text-white">CineSearch</span>
+            </div>
+            <div class="flex flex-wrap justify-center gap-6 md:gap-8 text-sm text-slate-600 dark:text-slate-500">
+                <a id="btn-privacy" class="hover:text-primary dark:hover:text-white transition-colors cursor-pointer"
+                    tabindex="0">Privacy Policy</a>
+                <a id="btn-terms" class="hover:text-primary dark:hover:text-white transition-colors cursor-pointer"
+                    tabindex="0">Terms of Service</a>
+                <a id="btn-contact" class="hover:text-primary dark:hover:text-white transition-colors cursor-pointer"
+                    tabindex="0">Contact</a>
+            </div>
+            <p class="text-xs text-slate-500 dark:text-slate-600">© 2024 CineSearch. All rights reserved.</p>
+        </div>
+    </footer>
+
+
+    <!-- 1. Privacy Policy Modal -->
+    <div id="modal-privacy" class="hidden fixed inset-0 z-[100]" aria-labelledby="privacy-modal-title" role="dialog"
+        aria-modal="true">
+        <!-- Backdrop -->
+        <div class="fixed inset-0 bg-slate-900/60 dark:bg-black/70 backdrop-blur-sm transition-opacity"
+            aria-hidden="true"></div>
+        <!-- Modal Panel -->
+        <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+            <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+                <div
+                    class="relative transform overflow-hidden rounded-2xl bg-[#fdfcfaf5] dark:bg-[#1a1a1a] text-left shadow-2xl overflow-y-auto max-h-[85vh] transition-all sm:my-8 sm:w-full sm:max-w-xl border border-slate-200 dark:border-white/10 p-6 md:p-8">
+                    <!-- Header -->
+                    <div class="flex justify-between items-center mb-6">
+                        <h3 class="text-2xl font-display text-slate-900 dark:text-white" id="privacy-modal-title">
+                            Privacy Policy</h3>
+                        <button id="close-privacy"
+                            class="text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-white transition-colors p-1 rounded-full hover:bg-slate-200 dark:hover:bg-slate-800">
+                            <span class="material-symbols-outlined">close</span>
+                        </button>
+                    </div>
+                    <!-- Body -->
+                    <div
+                        class="space-y-4 text-slate-600 dark:text-slate-300 font-sans text-sm md:text-base leading-relaxed">
+                        <p>At CineSearch, we take your privacy seriously. This policy describes what personal
+                            information we collect and how we use it. We only collect information to improve your movie
+                            discovery experience.</p>
+                        <p>We do not share, sell, or disclose your personal information to third parties without your
+                            explicit consent. Your viewing history and favorite movies are stored securely.</p>
+                        <p>If you have any questions regarding how your data is handled, please reach out to our
+                            dedicated privacy control team.</p>
+                    </div>
+                    <!-- Footer -->
+                    <div class="mt-8 sm:flex sm:flex-row-reverse">
+                        <button id="accept-privacy" type="button"
+                            class="inline-flex w-full justify-center rounded-full bg-primary px-6 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-primary/90 sm:ml-3 sm:w-auto transition-colors">Acknowledge</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. Terms of Service Modal -->
+    <div id="modal-terms" class="hidden fixed inset-0 z-[100]" aria-labelledby="terms-modal-title" role="dialog"
+        aria-modal="true">
+        <!-- Backdrop -->
+        <div class="fixed inset-0 bg-slate-900/60 dark:bg-black/70 backdrop-blur-sm transition-opacity"
+            aria-hidden="true"></div>
+        <!-- Modal Panel -->
+        <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+            <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+                <div
+                    class="relative transform overflow-hidden rounded-2xl bg-[#fdfcfaf5] dark:bg-[#1a1a1a] text-left shadow-2xl overflow-y-auto max-h-[85vh] transition-all sm:my-8 sm:w-full sm:max-w-xl border border-slate-200 dark:border-white/10 p-6 md:p-8">
+                    <!-- Header -->
+                    <div class="flex justify-between items-center mb-6">
+                        <h3 class="text-2xl font-display text-slate-900 dark:text-white" id="terms-modal-title">Terms of
+                            Service</h3>
+                        <button id="close-terms"
+                            class="text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-white transition-colors p-1 rounded-full hover:bg-slate-200 dark:hover:bg-slate-800">
+                            <span class="material-symbols-outlined">close</span>
+                        </button>
+                    </div>
+                    <!-- Body -->
+                    <div
+                        class="space-y-4 text-slate-600 dark:text-slate-300 font-sans text-sm md:text-base leading-relaxed">
+                        <h4 class="font-display font-medium text-slate-800 dark:text-slate-200 text-lg">1. Introduction
+                        </h4>
+                        <p>By using CineSearch, you agree to these Terms of Service. Please read them carefully. If you
+                            do not agree with any part of these terms, you may not use our services.</p>
+                        <h4 class="font-display font-medium text-slate-800 dark:text-slate-200 text-lg mt-4">2. Usage
+                            Rules</h4>
+                        <ul class="list-disc pl-5 space-y-1">
+                            <li>You must be at least 13 years old to use this service.</li>
+                            <li>Do not use bots, scrapers, or exploits to access movie databases.</li>
+                            <li>Your account is strictly for personal, non-commercial use.</li>
+                        </ul>
+                    </div>
+                    <!-- Footer -->
+                    <div class="mt-8 sm:flex sm:flex-row-reverse border-t border-slate-200 dark:border-white/10 pt-4">
+                        <button id="agree-terms" type="button"
+                            class="inline-flex w-full justify-center rounded-full bg-primary px-6 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-primary/90 sm:ml-3 sm:w-auto transition-colors">I
+                            Agree</button>
+                        <button id="decline-terms" type="button"
+                            class="mt-3 inline-flex w-full justify-center rounded-full bg-white dark:bg-slate-800 px-6 py-2.5 text-sm font-semibold text-slate-900 dark:text-slate-300 shadow-sm ring-1 ring-inset ring-slate-300 dark:ring-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 sm:mt-0 sm:w-auto transition-colors">Decline</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. Contact Form Modal -->
+    <div id="modal-contact" class="hidden fixed inset-0 z-[100]" aria-labelledby="contact-modal-title" role="dialog"
+        aria-modal="true">
+        <!-- Backdrop -->
+        <div class="fixed inset-0 bg-slate-900/60 dark:bg-black/70 backdrop-blur-sm transition-opacity"
+            aria-hidden="true"></div>
+        <!-- Modal Panel -->
+        <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+            <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+                <div
+                    class="relative transform overflow-hidden rounded-2xl bg-[#fdfcfaf5] dark:bg-[#1a1a1a] text-left shadow-2xl transition-all sm:my-8 sm:w-full sm:max-w-md border border-slate-200 dark:border-white/10 p-6 md:p-8">
+                    <!-- Header -->
+                    <div
+                        class="flex justify-between items-center mb-6 border-b border-slate-200 dark:border-white/10 pb-4">
+                        <h3 class="text-2xl font-display text-slate-900 dark:text-white" id="contact-modal-title">Get in
+                            Touch</h3>
+                        <button id="close-contact"
+                            class="text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-white transition-colors p-1 rounded-full hover:bg-slate-200 dark:hover:bg-slate-800">
+                            <span class="material-symbols-outlined">close</span>
+                        </button>
+                    </div>
+                    <!-- Body (Form) -->
+                    <form class="space-y-4 font-sans text-sm">
+                        <div>
+                            <label for="contact-email"
+                                class="block font-medium text-slate-700 dark:text-slate-300 mb-1">Email Address</label>
+                            <input type="email" name="email" id="contact-email"
+                                class="block w-full rounded-lg border-0 py-2.5 text-slate-900 dark:text-white dark:bg-slate-800 shadow-sm ring-1 ring-inset ring-slate-300 dark:ring-slate-700 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
+                                placeholder="you@example.com">
+                        </div>
+                        <div>
+                            <label for="contact-message"
+                                class="block font-medium text-slate-700 dark:text-slate-300 mb-1">Message</label>
+                            <textarea id="contact-message" name="message" rows="4"
+                                class="block w-full rounded-lg border-0 py-2.5 text-slate-900 dark:text-white dark:bg-slate-800 shadow-sm ring-1 ring-inset ring-slate-300 dark:ring-slate-700 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
+                                placeholder="How can we help you?"></textarea>
+                        </div>
+                    </form>
+                    <!-- Footer -->
+                    <div class="mt-8 sm:flex sm:flex-row-reverse">
+                        <button id="submit-contact" type="button"
+                            class="inline-flex w-full justify-center rounded-full bg-primary px-8 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-primary/90 transition-colors">Send
+                            Message</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
