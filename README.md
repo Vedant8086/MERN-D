@@ -27,11 +27,12 @@ This repository holds a variety of projects crafted during my learning and devel
 | 4️⃣ | **[Modal Window](./4_Modal_Window)** | A reusable modal and overlay UI component. | Vanilla JS, CSS |
 | 5️⃣ | **[Pig Game](./5_Pig_Game)** | A classic dice game implementation for two players. | Vanilla JS |
 | 📝 | **[To-Do List (Modern UI)](./5.1_To_Do_List_Modern_UI)**| A visually stunning, modern task management application. | Vanilla JS, CSS |
-| 🏦 | **[Array Bankist](./6_Array_Bankist)** | A minimalist banking app UI focusing on complex array iterations. | Advanced JS |
-| 🏦 | **[Bankist Project](./7_Bankist_Project)** | A marketing website for Bankist showcasing advanced DOM manipulation. | Advanced JS |
-| 🗺️ | **[Mapty Project](./8_Mapty_Project)** | A workout tracking app built using Geolocation API and Leaflet.js. | JS, Leaflet |
-| ⏳ | **[Async Practice](./9_Async_Practice)** | Projects and playgrounds focused on Promises, async/await, and APIs. | Async JS |
-| 🍽️ | **[Forkify Project](./10_Forkify_Project)** | A complete MVC recipe application fetching data from a custom API. | JS, MVC |
+| 6️⃣ | **[Array Bankist](./6_Array_Bankist)** | A minimalist banking app UI focusing on complex array iterations. | Advanced JS |
+| 🍿 | **[CineSearch Website](./7.1_CineSearch_Website)** | A modern movie search UI with dark mode and typing animations. | JS, Tailwind |
+| 7️⃣ | **[Bankist Project](./7_Bankist_Project)** | A marketing website for Bankist showcasing advanced DOM manipulation. | Advanced JS |
+| 8️⃣ | **[Mapty Project](./8_Mapty_Project)** | A workout tracking app built using Geolocation API and Leaflet.js. | JS, Leaflet |
+| 9️⃣ | **[Async Practice](./9_Async_Practice)** | Projects and playgrounds focused on Promises, async/await, and APIs. | Async JS |
+| 🔟 | **[Forkify Project](./10_Forkify_Project)** | A complete MVC recipe application fetching data from a custom API. | JS, MVC |
 | ⚛️ | **[React Project](./11_react-project)** | My foundational introductory project to React and its ecosystem. | React |
 | ❌⭕ | **[Tic Tac Toe](./12_tic_tac_toe)** | A fully functional Tic Tac Toe game built dynamically with React state. | React |
 
