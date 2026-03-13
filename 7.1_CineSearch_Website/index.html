@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="dark" lang="en">
+<html class="light" lang="en">
 
 <head>
     <meta charset="utf-8" />
@@ -155,8 +155,21 @@
                         Search from millions of movies and save your all-time favorites
                     </p>
                 </div>
-                <!-- Large Search Bar -->
-                <div class="w-full max-w-2xl mx-auto flex justify-center">
+                <!-- Search Type Toggle -->
+                <div class="flex justify-center mb-6 sm:mb-8">
+                    <div
+                        class="relative grid grid-cols-2 p-1 bg-[#fdfcfaf5]/60 dark:bg-black/20 rounded-full border border-slate-200 dark:border-white/10 glass-effect w-64 md:w-72 shadow-sm">
+                        <div id="search-type-slider"
+                            class="absolute top-1 bottom-1 left-1 w-[calc(50%-4px)] bg-primary rounded-full transition-transform duration-300 ease-out shadow-sm translate-x-0">
+                        </div>
+                        <button type="button" id="toggle-movies"
+                            class="relative z-10 py-1.5 sm:py-2 text-sm sm:text-base font-medium rounded-full text-white transition-colors duration-300 cursor-pointer">Movies</button>
+                        <button type="button" id="toggle-anime"
+                            class="relative z-10 py-1.5 sm:py-2 text-sm sm:text-base font-medium rounded-full text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors duration-300 cursor-pointer">Anime</button>
+                    </div>
+                </div>
+                <!-- Large Search Bar and Advanced Search -->
+                <div class="w-full max-w-2xl mx-auto flex flex-col items-center">
                     <div
                         class="glass-effect rounded-full p-1.5 sm:p-2 flex items-center shadow-[0_8px_30px_rgb(0,0,0,0.08)] dark:shadow-[0_8px_30px_rgb(0,0,0,0.2)] group focus-within:ring-2 focus-within:ring-primary/40 transition-all bg-white/60 dark:bg-black/20 w-full max-w-xl border border-slate-200 dark:border-white/10">
                         <div
@@ -170,6 +183,54 @@
                             class="bg-primary hover:bg-primary/90 text-white px-5 sm:px-8 py-2 sm:py-3 rounded-full font-medium transition-all shadow-md shadow-primary/20 flex items-center justify-center gap-1 sm:gap-2 whitespace-nowrap text-sm sm:text-base mr-0.5">
                             Search
                         </button>
+                    </div>
+
+                    <!-- Advanced Search Toggle Button -->
+                    <button type="button" id="toggle-advanced-search"
+                        class="mt-4 flex items-center gap-1.5 text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary transition-colors focus:outline-none">
+                        <span class="material-symbols-outlined text-[18px] transition-transform duration-300"
+                            id="advanced-search-icon">tune</span>
+                        <span>Advanced Search</span>
+                    </button>
+
+                    <!-- Advanced Search Panel -->
+                    <div id="advanced-search-panel"
+                        class="hidden w-full max-w-xl mt-4 p-5 rounded-2xl glass-effect bg-white/80 dark:bg-black/40 border border-slate-200 dark:border-white/10 shadow-lg text-left transition-all duration-300 opacity-0 transform -translate-y-2 relative z-30">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <!-- Year -->
+                            <div>
+                                <label for="adv-year"
+                                    class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Year</label>
+                                <input type="number" id="adv-year" placeholder="e.g. 2024"
+                                    class="w-full bg-transparent border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm text-slate-900 dark:text-white focus:ring-1 focus:ring-primary focus:border-primary outline-none transition-colors dark:bg-slate-800/50" />
+                            </div>
+                            <!-- Type -->
+                            <div>
+                                <label for="adv-type"
+                                    class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Type</label>
+                                <select id="adv-type"
+                                    class="w-full bg-transparent border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm text-slate-900 dark:text-white focus:ring-1 focus:ring-primary focus:border-primary outline-none transition-colors dark:bg-slate-800/50">
+                                    <option value="" class="dark:bg-slate-800">Any</option>
+                                    <option value="movie" class="dark:bg-slate-800">Movie</option>
+                                    <option value="series" class="dark:bg-slate-800">TV Series</option>
+                                    <option value="episode" class="dark:bg-slate-800">Episode</option>
+                                </select>
+                            </div>
+                            <!-- Director -->
+                            <div>
+                                <label for="adv-director"
+                                    class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Director</label>
+                                <input type="text" id="adv-director" placeholder="Director name"
+                                    class="w-full bg-transparent border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm text-slate-900 dark:text-white focus:ring-1 focus:ring-primary focus:border-primary outline-none transition-colors dark:bg-slate-800/50" />
+                            </div>
+                            <!-- Actor -->
+                            <div>
+                                <label for="adv-actor"
+                                    class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Actor</label>
+                                <input type="text" id="adv-actor" placeholder="Actor name"
+                                    class="w-full bg-transparent border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm text-slate-900 dark:text-white focus:ring-1 focus:ring-primary focus:border-primary outline-none transition-colors dark:bg-slate-800/50" />
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <!-- Genre Tags -->
