@@ -1,4 +1,5 @@
 import { darkMode } from "./darkMode.js";
+
 console.log(`Welcome!!!CineSearch!!!`);
 
 const darkModeBtn = document.querySelector('#theme-toggle-btn');
