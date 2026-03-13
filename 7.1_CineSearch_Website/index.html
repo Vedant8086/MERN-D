@@ -72,6 +72,20 @@
             -webkit-backdrop-filter: blur(12px);
             border: 1px solid rgba(217, 119, 87, 0.1);
         }
+
+        @keyframes blink-cursor {
+            0%,
+            100% {
+                border-color: transparent;
+            }
+            50% {
+                border-color: #d97757;
+            }
+        }
+
+        .animate-blink-cursor {
+            animation: blink-cursor 1s step-end infinite;
+        }
     </style>
 </head>
 
@@ -150,7 +164,7 @@
                 <div class="space-y-6">
                     <h1
                         class="text-4xl sm:text-5xl md:text-7xl font-normal tracking-tight text-slate-900 dark:text-slate-100 leading-tight">
-                        Find Any Movie, Instantly
+                        Find Any <span id="typewriter" class="text-primary border-r-[3px] border-primary pr-[2px] animate-blink-cursor"></span><br class="hidden sm:block"> Instantly
                     </h1>
                     <p
                         class="text-base sm:text-lg md:text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto font-light leading-relaxed tracking-normal">
