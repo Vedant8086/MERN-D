@@ -40,8 +40,10 @@ function typeWriter() {
     setTimeout(typeWriter, typeSpeed);
 }
 
-// Start animation when page loads
-document.addEventListener('DOMContentLoaded', () => {
+// Start animation safely whether page is loaded or not
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => setTimeout(typeWriter, 500));
+} else {
     setTimeout(typeWriter, 500);
-});
+}
 }
