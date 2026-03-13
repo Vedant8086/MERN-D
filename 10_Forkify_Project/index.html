@@ -21,7 +21,6 @@
       <header class="header">
         <img src="src/img/logo.png" alt="Logo" class="header__logo" />
         <form class="search">
-          <label class="visually-hidden" for="search-input">Search recipes</label>
           <input
             type="text"
             class="search__field"
@@ -127,8 +126,6 @@
           <a
             class="twitter-link"
             target="_blank"
-            rel="noopener"
-            title="Twitter Profile"
             href="https://twitter.com/jonasschmedtman"
             >Jonas Schmedtmann</a
           >. Use for learning or your portfolio. Don't use to teach. Don't claim
@@ -265,18 +262,18 @@
       <form class="upload">
         <div class="upload__column">
           <h3 class="upload__heading">Recipe data</h3>
-          <label for="title">Title</label>
-          <input id="title" value="TEST" required name="title" type="text" placeholder="Recipe title" title="Enter the recipe title" />
+          <label>Title</label>
+          <input value="TEST" required name="title" type="text" />
           <label>URL</label>
-          <input value="TEST" required name="sourceUrl" type="text" placeholder="Source URL" title="Enter the source URL" />
+          <input value="TEST" required name="sourceUrl" type="text" />
           <label>Image URL</label>
-          <input value="TEST" required name="image" type="text" placeholder="Image URL" title="Enter the image URL" />
+          <input value="TEST" required name="image" type="text" />
           <label>Publisher</label>
-          <input value="TEST" required name="publisher" type="text" placeholder="Publisher name" title="Enter the publisher name" />
+          <input value="TEST" required name="publisher" type="text" />
           <label>Prep time</label>
-          <input value="23" required name="cookingTime" type="number" placeholder="Minutes" title="Enter preparation time in minutes" />
+          <input value="23" required name="cookingTime" type="number" />
           <label>Servings</label>
-          <input value="23" required name="servings" type="number" placeholder="Number of servings" title="Enter number of servings" />
+          <input value="23" required name="servings" type="number" />
         </div>
 
         <div class="upload__column">

@@ -1,12 +1,15 @@
 <!DOCTYPE html>
-<html class="light" lang="en">
+<html class="dark" lang="en">
 
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>CineSearch - Discover Your Next Favorite Movie</title>
+    <script defer type="module" src="script.js"></script>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23d97757'><path d='M18 4l2 4h-3l-2-4h-2l2 4h-3l-2-4H8l2 4H7L5 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4h-4zM5.76 10.04L7.18 8.62l1.41 1.41-1.42 1.42-1.41-1.41zm3.84 0l1.41-1.42 1.41 1.42-1.42 1.41-1.4-1.41zm3.83-2.83l1.42-1.41 1.41 1.41-1.41 1.42-1.42-1.42zm1.42 4.24l1.41-1.41 1.41 1.41-1.41 1.42-1.41-1.42z'/></svg>" type="image/svg+xml">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23d97757'><path d='M18 4l2 4h-3l-2-4h-2l2 4h-3l-2-4H8l2 4H7L5 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4h-4zM5.76 10.04L7.18 8.62l1.41 1.41-1.42 1.42-1.41-1.41zm3.84 0l1.41-1.42 1.41 1.42-1.42 1.41-1.4-1.41zm3.83-2.83l1.42-1.41 1.41 1.41-1.41 1.42-1.42-1.42zm1.42 4.24l1.41-1.41 1.41 1.41-1.41 1.42-1.41-1.42z'/></svg>"
+        type="image/svg+xml">
     <link
         href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&display=swap"
         rel="stylesheet" />
@@ -41,7 +44,6 @@
             },
         }
     </script>
-    <script defer type="module" src="script.js"></script>
     <style>
         body {
             font-family: 'Newsreader', serif;
@@ -74,10 +76,12 @@
         }
 
         @keyframes blink-cursor {
+
             0%,
             100% {
                 border-color: transparent;
             }
+
             50% {
                 border-color: #d97757;
             }
@@ -166,9 +170,10 @@
                         class="text-4xl sm:text-5xl md:text-7xl font-normal tracking-tight text-slate-900 dark:text-slate-100 leading-tight">
                         <span class="inline-block sm:inline">Find Any</span>
                         <span class="inline-block text-left w-[130px] sm:w-[170px] md:w-[250px]">
-                            <span id="typewriter" class="text-primary border-r-[3px] border-primary pr-[2px] animate-blink-cursor"></span>
+                            <span id="typewriter"
+                                class="text-primary border-r-[3px] border-primary pr-[2px] animate-blink-cursor"></span>
                         </span>
-                        <br class="hidden sm:block"> 
+                        <br class="hidden sm:block">
                         <span class="inline-block sm:inline">Instantly</span>
                     </h1>
                     <p
