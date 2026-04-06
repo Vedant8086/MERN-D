@@ -1,7 +1,9 @@
+import { useState } from "react";
 import Player from "./Player.jsx"
 import GameBoard from "./GameBoard.jsx";
-import { useState } from "react";
+import Log from './Log.jsx';
 export default function Dashboard() {
+    const [gameTurns, setGameTurns] = useState();
     const [activePlayer, setActivePlayer] = useState('X');
 
     function handleSelections() {
@@ -16,6 +18,7 @@ export default function Dashboard() {
                 </ol>
                 <GameBoard onSelections={handleSelections} activePlayerSymbol={activePlayer} />
             </div>
+            <Log />
         </main >
     )
 }
