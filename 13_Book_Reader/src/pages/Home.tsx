@@ -11,8 +11,9 @@ export default function Home() {
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, ease: "easeOut" }}
-          className="space-y-6"
+          className="space-y-6 flex flex-col items-center"
         >
+          <img src="/favicon.png" alt="Lumina Reader Logo" className="w-16 h-16 mb-4 rounded-xl shadow-2xl shadow-white/5" />
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-md bg-[#27272a] border border-[#3f3f46] text-xs font-medium text-[#d4d4d8] mb-2">
             <span className="flex h-1.5 w-1.5 rounded-full bg-[#f4f4f5]"></span>
             8 reading themes available
