@@ -37,10 +37,28 @@
   --pdf-filter: invert(0.9) hue-rotate(180deg) sepia(40%) brightness(0.9);
 }
 
+[data-theme="forest"] {
+  --background: #1a2e1a;
+  --foreground: #c8dcc8;
+  --pdf-filter: invert(0.85) hue-rotate(180deg) sepia(15%) saturate(80%) brightness(0.92);
+}
+
+[data-theme="ocean"] {
+  --background: #141e2e;
+  --foreground: #c4d4e8;
+  --pdf-filter: invert(0.88) hue-rotate(180deg) saturate(85%) brightness(0.93);
+}
+
+[data-theme="rose"] {
+  --background: #2a1a22;
+  --foreground: #e8ced8;
+  --pdf-filter: invert(0.87) hue-rotate(180deg) sepia(20%) saturate(90%) brightness(0.9);
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-inter), system-ui, sans-serif;
+  --font-sans: "Inter", system-ui, sans-serif;
   --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
 }
 
@@ -49,6 +67,9 @@ body {
   color: var(--foreground);
   font-family: var(--font-sans);
   transition: background-color 0.3s ease, color 0.3s ease;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
 }
 
 /* PDF Canvas Theming */

@@ -1,5 +1,3 @@
-"use client";
-
 import { useState, useEffect, useRef } from "react";
 import { Document, Page, pdfjs } from "react-pdf";
 import "react-pdf/dist/Page/AnnotationLayer.css";
@@ -15,8 +13,8 @@ import {
   Palette,
   ArrowLeft
 } from "lucide-react";
-import Link from "next/link";
-import { useTheme } from "@/components/ThemeProvider";
+import { Link } from "react-router-dom";
+import { useTheme } from "../components/ThemeProvider";
 
 // Set up PDF.js worker
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
@@ -152,7 +150,7 @@ export default function ReaderPage() {
     return (
       <main className="flex-1 flex flex-col items-center justify-center p-6 min-h-screen bg-[#18181b] text-[#f4f4f5] font-sans">
         <div className="absolute top-6 left-6">
-          <Link href="/" className="flex items-center gap-2 text-[#a1a1aa] hover:text-[#f4f4f5] transition-colors font-medium">
+          <Link to="/" className="flex items-center gap-2 text-[#a1a1aa] hover:text-[#f4f4f5] transition-colors font-medium">
             <ArrowLeft className="w-4 h-4" /> Back
           </Link>
         </div>
@@ -180,12 +178,15 @@ export default function ReaderPage() {
     );
   }
 
-  const themes: { id: "light" | "sepia" | "dark" | "amoled" | "warm-night", label: string }[] = [
-    { id: "light", label: "Light" },
-    { id: "sepia", label: "Sepia" },
-    { id: "dark", label: "Dark" },
-    { id: "amoled", label: "AMOLED" },
-    { id: "warm-night", label: "Warm Night" },
+  const themes: { id: "light" | "sepia" | "dark" | "amoled" | "warm-night" | "forest" | "ocean" | "rose", label: string, swatch: string }[] = [
+    { id: "light", label: "Light", swatch: "#ffffff" },
+    { id: "sepia", label: "Sepia", swatch: "#f4ecd8" },
+    { id: "dark", label: "Dark", swatch: "#18181b" },
+    { id: "amoled", label: "AMOLED", swatch: "#000000" },
+    { id: "warm-night", label: "Warm Night", swatch: "#2b2118" },
+    { id: "forest", label: "Forest", swatch: "#1a2e1a" },
+    { id: "ocean", label: "Ocean", swatch: "#141e2e" },
+    { id: "rose", label: "Rose", swatch: "#2a1a22" },
   ];
 
   return (
@@ -228,7 +229,8 @@ export default function ReaderPage() {
               <Palette className="w-5 h-5" />
             </button>
             {isThemeOpen && (
-              <div className="absolute right-0 top-full mt-2 bg-[#1a1a1a] border border-white/10 rounded-xl shadow-2xl p-2 flex flex-col gap-1 w-40 z-50">
+              <div className="absolute right-0 top-full mt-2 bg-[#1a1a1a] border border-white/10 rounded-xl shadow-2xl p-2 flex flex-col gap-1 w-48 z-50">
+                <div className="px-3 py-1.5 text-[10px] uppercase tracking-wider text-white/30 font-medium">Reading Theme</div>
                 {themes.map(t => (
                   <button
                     key={t.id}
@@ -236,9 +238,14 @@ export default function ReaderPage() {
                       setTheme(t.id);
                       setIsThemeOpen(false);
                     }}
-                    className={`px-3 py-2 text-sm text-left rounded-lg transition-colors ${theme === t.id ? 'bg-blue-500/20 text-blue-400' : 'hover:bg-white/5'}`}
+                    className={`px-3 py-2 text-sm text-left rounded-lg transition-colors flex items-center gap-3 ${theme === t.id ? 'bg-blue-500/20 text-blue-400' : 'hover:bg-white/5 text-white/80'}`}
                   >
+                    <span 
+                      className="w-4 h-4 rounded-full shrink-0 ring-1 ring-white/20" 
+                      style={{ backgroundColor: t.swatch }}
+                    />
                     {t.label}
+                    {theme === t.id && <span className="ml-auto text-[10px] text-blue-400">✓</span>}
                   </button>
                 ))}
               </div>

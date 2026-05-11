@@ -1,6 +1,4 @@
-"use client";
-
-import Link from "next/link";
+import { Link } from "react-router-dom";
 import { BookOpen, Upload, SunMoon } from "lucide-react";
 import { motion } from "framer-motion";
 
@@ -17,7 +15,7 @@ export default function Home() {
         >
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-md bg-[#27272a] border border-[#3f3f46] text-xs font-medium text-[#d4d4d8] mb-2">
             <span className="flex h-1.5 w-1.5 rounded-full bg-[#f4f4f5]"></span>
-            5 reading themes available
+            8 reading themes available
           </div>
 
           <h1 className="text-4xl md:text-6xl font-medium tracking-tight text-[#f4f4f5] font-serif">
@@ -36,7 +34,7 @@ export default function Home() {
           className="flex flex-col sm:flex-row items-center gap-4"
         >
           <Link 
-            href="/reader"
+            to="/reader"
             className="flex items-center gap-2 bg-[#f4f4f5] hover:bg-[#e4e4e7] text-[#18181b] px-6 py-3 rounded-lg font-medium transition-colors"
           >
             <BookOpen className="w-4 h-4" />
