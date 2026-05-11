@@ -1,0 +1,7 @@
+{
+  "name": "mern-d-workspace",
+  "private": true,
+  "workspaces": [
+    "*"
+  ]
+}
