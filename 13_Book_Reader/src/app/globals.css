@@ -1,0 +1,58 @@
+@import "tailwindcss";
+
+:root {
+  /* Default Theme: Anthropic Dark */
+  --background: #18181b;
+  --foreground: #f4f4f5;
+  --pdf-filter: invert(0.9) hue-rotate(180deg) brightness(0.95);
+}
+
+[data-theme="light"] {
+  --background: #ffffff;
+  --foreground: #18181b;
+  --pdf-filter: none;
+}
+
+[data-theme="sepia"] {
+  --background: #f4ecd8;
+  --foreground: #5b4636;
+  --pdf-filter: sepia(60%) brightness(95%) contrast(90%);
+}
+
+[data-theme="dark"] {
+  --background: #18181b;
+  --foreground: #f4f4f5;
+  --pdf-filter: invert(0.9) hue-rotate(180deg) brightness(0.95);
+}
+
+[data-theme="amoled"] {
+  --background: #000000;
+  --foreground: #ffffff;
+  --pdf-filter: invert(1) hue-rotate(180deg) contrast(1.1);
+}
+
+[data-theme="warm-night"] {
+  --background: #2b2118;
+  --foreground: #e8d9c5;
+  --pdf-filter: invert(0.9) hue-rotate(180deg) sepia(40%) brightness(0.9);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* PDF Canvas Theming */
+.pdf-canvas-wrapper canvas {
+  filter: var(--pdf-filter);
+  transition: filter 0.3s ease;
+}
